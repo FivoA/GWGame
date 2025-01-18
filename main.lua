@@ -4,9 +4,6 @@ local pauseScene = require("pauseScene")
 local roomScene = require("roomScene")
 local terminalScene = require("terminalScene")
 
---the rest are tables for the actual items themselves, not just the rendered sprites
-
-
 function love.load() -- done once on game start up, load all assets and resources
     local screenWidth, screenHeight = love.window.getDesktopDimensions()
     love.window.setMode(screenWidth, screenHeight, { fullscreen = true }) -- just scales the game to fullscreen no matter what ur on
@@ -244,7 +241,7 @@ end
 -- game closing / playing
 function love.keypressed(key)
     if key == 'escape' then
-        if currentGamestate == "roomscene" then
+        if (currentGamestate == "roomscene") or (currentGamestate == "terminal") then
             currentGamestate = "paused"
         else
             love.event.quit() -- only instant quit from main menu or pause menu
