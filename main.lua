@@ -1,6 +1,6 @@
 --  scene system table
 local gamestateTable = {"menu", "roomscene", "paused"} 
-local currentGamestate = "menu" 
+local currentGamestate = "menu"
 
 local items = {} -- table with clickable items in room
 --the rest are tables for the actual items themselves, not just the rendered sprites
