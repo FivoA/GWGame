@@ -2,14 +2,7 @@ require("globalVariables")
 local menuScene = require("menuScene")
 local pauseScene = require("pauseScene")
 local roomScene = require("roomScene")
-
-
---  scene system table
-local gamestateTable = {"menu", "roomscene", "paused"} 
-local currentGamestate = "menu" 
-
---the rest are tables for the actual items themselves, not just the rendered sprites
-
+local terminalScene = require("terminalScene")
 
 function love.load() -- done once on game start up, load all assets and resources
     local screenWidth, screenHeight = love.window.getDesktopDimensions()
@@ -188,6 +181,8 @@ function love.draw()
         roomScene.drawRoom()
     elseif currentGamestate == "paused" then
         pauseScene.drawPause()
+    elseif currentGamestate == "terminal" then
+        terminalScene.draw()
     else
         menuScene.drawMenu()
     end
@@ -198,6 +193,8 @@ function love.update(dt)
         roomScene.updateRoom(dt)
     elseif currentGamestate == "paused" then
         pauseScene.updatePause(dt)
+    elseif currentGamestate == "terminal" then
+        terminalScene.update(dt)
     else
         menuScene.updateMenu(dt)
     end
@@ -208,6 +205,8 @@ function love.mousepressed(x, y, button, istouch)
         roomScene.mousePressRoom(x, y, button, istouch)
     elseif currentGamestate == "paused" then
         pauseScene.mousePressPause(x, y, button, istouch)
+    elseif currentGamestate == "terminal" then
+        terminalScene.mousepressed(x, y, button, istouch)
     else
         menuScene.mousePressMenu(x, y, button, istouch)
     end
@@ -242,7 +241,7 @@ end
 -- game closing / playing
 function love.keypressed(key)
     if key == 'escape' then
-        if currentGamestate == "roomscene" then
+        if (currentGamestate == "roomscene") or (currentGamestate == "terminal") then
             currentGamestate = "paused"
         else
             love.event.quit() -- only instant quit from main menu or pause menu
