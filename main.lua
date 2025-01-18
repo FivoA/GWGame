@@ -2,11 +2,7 @@ require("globalVariables")
 local menuScene = require("menuScene")
 local pauseScene = require("pauseScene")
 local roomScene = require("roomScene")
-
-
---  scene system table
-local gamestateTable = {"menu", "roomscene", "paused"} 
-local currentGamestate = "menu"
+local terminalScene = require("terminalScene")
 
 --the rest are tables for the actual items themselves, not just the rendered sprites
 
@@ -188,6 +184,8 @@ function love.draw()
         roomScene.drawRoom()
     elseif currentGamestate == "paused" then
         pauseScene.drawPause()
+    elseif currentGamestate == "terminal" then
+        terminalScene.draw()
     else
         menuScene.drawMenu()
     end
@@ -198,6 +196,8 @@ function love.update(dt)
         roomScene.updateRoom(dt)
     elseif currentGamestate == "paused" then
         pauseScene.updatePause(dt)
+    elseif currentGamestate == "terminal" then
+        terminalScene.update(dt)
     else
         menuScene.updateMenu(dt)
     end
@@ -208,6 +208,8 @@ function love.mousepressed(x, y, button, istouch)
         roomScene.mousePressRoom(x, y, button, istouch)
     elseif currentGamestate == "paused" then
         pauseScene.mousePressPause(x, y, button, istouch)
+    elseif currentGamestate == "terminal" then
+        terminalScene.mousepressed(x, y, button, istouch)
     else
         menuScene.mousePressMenu(x, y, button, istouch)
     end

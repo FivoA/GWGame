@@ -118,7 +118,7 @@ function roomScene.mousePressRoom(x, y, button, istouch)
             if x >= items[1].x and x <= items[1].x + (items[1].width*items[1].scaleX) and y >= items[1].y and y <= items[1].y + (items[1].height*items[1].scaleY) then
                 print("Computer Clicked") -- debug
                 infoBoxVisible = false
-                somethingOpen = true
+                currentGamestate = "terminal"
             end
         end
 
