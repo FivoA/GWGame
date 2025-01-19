@@ -59,7 +59,7 @@ end
 
 function Terminal:draw()
     for i, line in ipairs(self.output) do
-    -- love.graphics.print( text, x, y,)
+    -- love.graphics.print( text, x, y)
         love.graphics.print({termFontCol, line}, termSepX, termSepY + (i - 1) * (terminalFontSize + termSepLine))
     end
 

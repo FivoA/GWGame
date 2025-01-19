@@ -49,6 +49,24 @@ function Termfunc.exit()
     currentGamestate = "room"
 end
 
+function Termfunc.help(terminal)
+    local _commands = {}
+    for command in pairs(terminal.commands) do
+        table.insert(_commands, command)
+    end
+    table.sort(_commands)
+    for i = 1, #_commands, 3 do
+        local coms1 = string.format("%-20s", _commands[i] or "")
+        local coms2 = string.format("%-20s", _commands[i+1] or "")
+        local coms3 = string.format("%-20s", _commands[i+2] or "")
+        -- print(coms1 .. " with length: " .. #coms1)
+        -- print(coms2 .. " with length: " .. #coms2)
+        -- print(coms3 .. " with length: " .. #coms3)
+        
+        terminal:println(coms1 .. coms2 .. coms3)
+    end
+end
+
 function Termfunc.hello(terminal)
     table.insert(terminal.output, "Hello, World!")
 end
