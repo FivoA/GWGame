@@ -53,7 +53,7 @@ currentFrame = 1 -- current frame index
 animationTimer = 0
 frameDuration = 0.2
 
--- global terminal holder
+-- global terminal holder and variables
 terminal = nil
 terminalFontSize = 20
 termSepX = 50 -- terminal separator on x axis
@@ -61,3 +61,4 @@ termSepY = 50 -- temrinal separator on y axis
 termSepLine = 10 --terminal separator between terminal lines
 termBG = {7 / 255, 7 / 255, 7 / 255}
 termFontCol = {0, 1, 0}
+currentPath = {"root", "home", "user"}

@@ -28,7 +28,11 @@ function Terminal:handleInput()
         table.remove(args, 1)
 
         if self.commands[command] then
-            self.commands[command](self, unpack(args))
+            if #args > 0 then
+                self.commands[command](self, unpack(args))
+            else
+                self.commands[command](self)
+            end
         else
             table.insert(self.output, "Unknown command: " .. command)
         end

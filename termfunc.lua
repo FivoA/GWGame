@@ -1,7 +1,18 @@
+require("filesystem")
+local fsutils = require("fsutils")
+
 local Termfunc = {}
 -- pls organize in lexographic order for better readability
 -- terminal commands are here declared functions
 -- Syntax: function Termfunc.function(terminal, ...) <function body> end
+
+function Termfunc.cat(terminal)
+    terminal:println("NYI")
+end
+
+function Termfunc.cd(terminal)
+    terminal:println("NYI")
+end
 
 function Termfunc.clear(terminal)
     terminal.output = {}
@@ -35,12 +46,35 @@ function Termfunc.echo(terminal, ...)
     table.insert(terminal.output, text)
 end
 
+-- does not need the terminal since it's not printing anything
 function Termfunc.exit()
     currentGamestate = "room"
 end
 
 function Termfunc.hello(terminal)
     table.insert(terminal.output, "Hello, World!")
+end
+
+function Termfunc.ls(terminal)
+    local dir, err = fsutils.navigate(currentPath, Filesystem)
+    if not dir then
+        return err
+    end
+    for name, entry in pairs(dir) do
+        if isDirectory(entry) then
+            terminal:print(name .. "/")
+        elseif isFile(entry) then
+            terminal:print(name)
+        end
+    end
+end
+
+function Termfunc.mkdir(terminal)
+    terminal:println("[ERROR] NYI")
+end
+
+function Termfunc.rm(terminal)
+    terminal:println("[ERROR] NYI")
 end
 
 return Termfunc
