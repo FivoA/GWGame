@@ -1,8 +1,8 @@
 items = {} -- table with clickable items in room
 manual = {} -- code manual
 
---  scene system table
--- "menu", "roomscene", "paused", "terminal"
+--  scene system table, can be:
+-- "menu", "room", "paused", "terminal"
 currentGamestate = "menu"
 
 -- day specific variables
@@ -52,3 +52,6 @@ lavaLampFrames = {}
 currentFrame = 1 -- current frame index
 animationTimer = 0
 frameDuration = 0.2
+
+-- global terminal holder
+terminal = nil

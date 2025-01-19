@@ -173,11 +173,11 @@ function love.load() -- done once on game start up, load all assets and resource
     }
 
     love.graphics.setNewFont(14)
-
+    terminalScene.load()
 end
 
 function love.draw()
-    if currentGamestate == "roomscene" then
+    if currentGamestate == "room" then
         roomScene.drawRoom()
     elseif currentGamestate == "paused" then
         pauseScene.drawPause()
@@ -189,7 +189,7 @@ function love.draw()
 end
 
 function love.update(dt) 
-    if currentGamestate == "roomscene" then
+    if currentGamestate == "room" then
         roomScene.updateRoom(dt)
     elseif currentGamestate == "paused" then
         pauseScene.updatePause(dt)
@@ -201,12 +201,10 @@ function love.update(dt)
 end
 
 function love.mousepressed(x, y, button, istouch) 
-    if currentGamestate == "roomscene" then
+    if currentGamestate == "room" then
         roomScene.mousePressRoom(x, y, button, istouch)
     elseif currentGamestate == "paused" then
         pauseScene.mousePressPause(x, y, button, istouch)
-    elseif currentGamestate == "terminal" then
-        terminalScene.mousepressed(x, y, button, istouch)
     else
         menuScene.mousePressMenu(x, y, button, istouch)
     end
@@ -240,14 +238,19 @@ end
 
 -- game closing / playing
 function love.keypressed(key)
+    -- if in terminalScene then pass key handling to terminalScene
+    if currentGamestate == "terminal" then
+        terminalScene.keypressed(key)
+    end
+
     if key == 'escape' then
-        if (currentGamestate == "roomscene") or (currentGamestate == "terminal") then
+        if (currentGamestate == "room") then
             currentGamestate = "paused"
         else
             love.event.quit() -- only instant quit from main menu or pause menu
         end
     elseif key == 'space' and (currentGamestate == "menu" or currentGamestate == "paused") then
-        currentGamestate = "roomscene"
+        currentGamestate = "room"
     end
 end
 
