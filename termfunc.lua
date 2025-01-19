@@ -10,8 +10,34 @@ function Termfunc.cat(terminal)
     terminal:println("NYI")
 end
 
-function Termfunc.cd(terminal)
-    terminal:println("NYI")
+function Termfunc.cd(terminal, ...)
+    local args = {...}
+    if #args ~= 1 then
+        terminal:println("Requires exactly one positional argmuent.")
+        return
+    end
+
+    local _currentPath = currentPath
+
+    local pathParts = fsutils.splitPaths(args[1])
+    for _, subdir in ipairs(pathParts) do
+        if subdir == "." then
+            -- do nothing for current directory
+        elseif subdir == ".." then
+            table.remove(currentPath, #currentPath)
+        else
+            table.insert(currentPath, subdir)
+            local _dir, err = fsutils.navigate(currentPath, Filesystem)
+            if not _dir then
+                terminal:println(err)
+                goto restoreCurrentPath
+            end
+        end
+    end
+    
+    ::restoreCurrentPath::
+    currentPath = _currentPath
+    print("currentPath restored, because of error in subdir traversal")
 end
 
 function Termfunc.clear(terminal)

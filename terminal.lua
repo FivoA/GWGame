@@ -85,7 +85,7 @@ function Terminal:keypressed(key)
     elseif key == 'return' then
         self:handleInput()
     else
-        if #key == 1 then
+        if #key == 1 then -- TODO: missing key down here for special characters liek / or $
             self:textinput(key)
         end
     end

@@ -13,5 +13,13 @@ function fsutils.navigate(path, filesystem)
     return current
 end
 
+function fsutils.splitPaths(path)
+    local pathParts = {}
+    for part in string.gmatch(path, "[^/]+") do
+        table.insert(pathParts, part)
+    end
+    return pathParts
+end
+
 
 return fsutils
