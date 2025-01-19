@@ -28,7 +28,7 @@ function Terminal:handleInput()
         table.remove(args, 1)
 
         if self.commands[command] then
-            self.commands[command](self, table.unpack(args))
+            self.commands[command](self, unpack(args))
         else
             table.insert(self.output, "Unknown command: " .. command)
         end
@@ -41,6 +41,10 @@ function Terminal:handleInput()
     end
 end
 
+function Terminal:println(text)
+    table.insert(self.output, text)
+end
+
 function Terminal:update(dt)
     self.cursorTimer = self.cursorTimer + dt
     if self.cursorTimer >= 0.5 then
@@ -50,15 +54,15 @@ function Terminal:update(dt)
 end
 
 function Terminal:draw()
-    local startY = 10
-    local startX = 20
     for i, line in ipairs(self.output) do
-    -- love.graphics.print( text,  x,        y, r, sx, sy, ox, oy, kx, ky )
-        love.graphics.print(line, 10, startY + (i - 1) * 15)
+    -- love.graphics.print( text, x, y,)
+        love.graphics.print({termFontCol, line}, termSepX, termSepY + (i - 1) * (terminalFontSize + termSepLine))
     end
 
     local cursor = self.cursorBlink and "|" or ""
-    love.graphics.print("> " .. self.input .. cursor, 10, startY + #self.output * 15)
+    love.graphics.print({termFontCol, "> " .. self.input .. cursor},
+                        termSepX,
+                        termSepY + #self.output * (terminalFontSize + termSepLine))
 end
 
 function Terminal:textinput(t)

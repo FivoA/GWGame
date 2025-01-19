@@ -1,4 +1,5 @@
 local Terminal = require("terminal")
+local termfunc = require("termfunc")
 
 local terminalScene = {}
 
@@ -6,29 +7,18 @@ function terminalScene.load()
     if not terminal then
         terminal = Terminal:new()
 
-        -- Beispielbefehle registrieren
-        terminal:registerCommand("hello", function(terminal)
-            table.insert(terminal.output, "Hello, World!")
-        end)
-
-        terminal:registerCommand("clear", function(terminal)
-            terminal.output = {}
-        end)
-
-        terminal:registerCommand("echo", function(terminal, ...)
-            local text = table.concat({...}, " ")
-            table.insert(terminal.output, text)
-        end)
-        
-        terminal:registerCommand("exit", function ()
-            currentGamestate = "roomscene"
-        end)
+        -- Beispielbefehle registrieren (hier alphabetisch sortiert für besser Übersicht)
+        terminal:registerCommand("clear", termfunc.clear)
+        terminal:registerCommand("color", termfunc.color)
+        terminal:registerCommand("echo",  termfunc.echo)
+        terminal:registerCommand("exit",  termfunc.exit)
+        terminal:registerCommand("hello", termfunc.hello)
     end
 end
 
 function terminalScene.draw()
-    love.graphics.clear(0.1567, 0.173, 0.204)
-    love.graphics.setFont(love.graphics.newFont(20))
+    love.graphics.clear(termBG)
+    love.graphics.setFont(love.graphics.newFont(terminalFontSize))
     terminal:draw()
 end
 
