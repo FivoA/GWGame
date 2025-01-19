@@ -1,5 +1,7 @@
 local Termfunc = {}
 -- pls organize in lexographic order for better readability
+-- terminal commands are here declared functions
+-- Syntax: function Termfunc.function(terminal, ...) <function body> end
 
 function Termfunc.clear(terminal)
     terminal.output = {}
