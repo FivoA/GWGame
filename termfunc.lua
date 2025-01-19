@@ -19,9 +19,7 @@ function Termfunc.clear(terminal)
 end
 
 function Termfunc.color(terminal, ...)
-    print(...)
     local args = {...}
-    print(args)
     if #args ~= 3 then
         terminal:println("Exactly 3 parameters are required.")
         return
@@ -58,19 +56,52 @@ end
 function Termfunc.ls(terminal)
     local dir, err = fsutils.navigate(currentPath, Filesystem)
     if not dir then
-        return err
+        terminal:println(err)
+        return
     end
     for name, entry in pairs(dir) do
         if isDirectory(entry) then
-            terminal:print(name .. "/")
+            terminal:println(name .. "/")
         elseif isFile(entry) then
-            terminal:print(name)
+            terminal:println(name)
         end
     end
 end
 
-function Termfunc.mkdir(terminal)
-    terminal:println("[ERROR] NYI")
+function Termfunc.mkdir(terminal, ...)
+    local args = {...}
+    if #args ~= 1 then
+        terminal:println("Required one positional argument: <directory name>")
+        return
+    end
+
+    local dir, err = fsutils.navigate(currentPath, Filesystem)
+    if not dir then
+        terminal:println(err)
+        return
+    end
+
+    local pathParts = {}
+    for part in string.gmatch(args[1], "[^/]+") do
+        table.insert(pathParts, part)
+    end
+    local currentDir = dir
+
+    for _, part in ipairs(pathParts) do
+        if currentDir[part] then
+            if not isDirectory(currentDir[part]) then
+                terminal:println("A file with the name '" .. part .. "' already exists.")
+                return
+            end
+            currentDir = currentDir[part]
+        else
+            currentDir[part] = {}
+            currentDir = currentDir[part]
+        end
+    end
+
+    terminal:println("Directory created successfully. -> HAHA but you cant see it with ls cause this function is still under dev!")
+    
 end
 
 function Termfunc.rm(terminal)
