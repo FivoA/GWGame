@@ -49,3 +49,16 @@
 - The AI talks about the goals, playing with the cat is missing
 - Kelly asks the AI about Muffin. It starts answering the question/glitches out in a particular way.
 - The computer lights up. "Your support ticket has been processed. Use "talk chad@..." to contact out tech support"
+
+
+
+
+------ Meeting -------
+--- Tag 1 ---
+- ls, cd, cat -> navigate the file system #notes create the file system in a way kelly can navigate there
+
+
+--- Tag 2 ---
+- hack command: hack something lol get to AI #notes change into ai workspace from kellys workspace
+- proc command: show processes that are actively running #notes maybe show them from a separate process table
+
