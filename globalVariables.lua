@@ -1,3 +1,6 @@
+-- package dependency
+package.cpath = package.cpath .. ";./lib/lua/5.4/lfs.dll"
+
 items = {} -- table with clickable items in room
 manual = {} -- code manual
 
