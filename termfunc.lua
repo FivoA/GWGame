@@ -1,5 +1,3 @@
--- here should luafilesystem be required but the fuck it is doing
-
 require("filesystem")
 local fsutils = require("fsutils")
 

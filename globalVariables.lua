@@ -1,6 +1,3 @@
--- package dependency
-
-
 items = {} -- table with clickable items in room
 manual = {} -- code manual
 
