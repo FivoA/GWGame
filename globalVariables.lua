@@ -1,5 +1,6 @@
 -- package dependency
-package.cpath = package.cpath .. ";./lib/lua/5.4/lfs.dll"
+package.cpath = package.cpath .. "; ./lib/lua/lua.dll"
+print("Set cpath")
 
 items = {} -- table with clickable items in room
 manual = {} -- code manual

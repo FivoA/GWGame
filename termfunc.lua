@@ -1,4 +1,7 @@
+print("Loading lfs in termfunc.lua...")
 local lfs = require("lfs")
+print("-> Loading lfs completed.")
+
 require("filesystem")
 local fsutils = require("fsutils")
 
@@ -67,7 +70,7 @@ function Termfunc.color(terminal, ...)
 end
 
 function Termfunc.cwd(terminal)
-    terminal:println(lfs.currentdir())
+    --terminal:println(lfs.currentdir())
 end
 
 function Termfunc.echo(terminal, ...)
