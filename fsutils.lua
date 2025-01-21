@@ -1,21 +1,6 @@
 -- filesystem utils.lua
 local fsutils = {}
-
----function fsutils.toTerminalPath(path)
----    local _game_dir = directories.game_dir
----
----    -- print(_game_dir .. "-> # " .. #_game_dir)
----    -- print(path)
----    local termPath = path:sub(#_game_dir + 1)
----    -- print("[fsutils] termPath: " .. termPath)
----
----    local slashIndex = termPath:find("/")
----    if slashIndex then
----        termPath = termPath:sub(slashIndex + 1)
----    end
----
----    return termPath .. "/"
----end
+local lfs = love.filesystem
 
 function fsutils.toRealPath(path)
     if connectionState == 'kelly' then
@@ -37,7 +22,7 @@ function fsutils.toGameRelativePath(path)
     end
 end
 
-function fsutils.extract(file)
+function fsutils.extractFilename(file)
     if file == '_index_.gamefile' then return nil end
     local isGameFile = file:find("%.gamefile$")
     if isGameFile then
@@ -76,5 +61,37 @@ function fsutils.isGameDirectory(potentialPath)
         end
     return false
 end
+
+--- extracts the file content if the current permissions are met
+---@param filename string
+---@return string content of the file if permissions are met otherwise an error message
+function fsutils.extractFileContent(file)
+    if not (file .. ".gamefile"):match("([^/]+).gamefile$") then 
+        return "This does not seem to be a file."
+    end
+    
+    local fileContent = {}
+    local filepath = fsutils.toGameRelativePath(termcwd .. "/" .. file .. ".gamefile")
+    -- print("Constructed filepath: " .. filepath)
+    -- local fileInfo = lfs.getInfo(filepath)
+    -- if not fileInfo then
+    --     return "File <" .. file .. "> does not exist or cannot be accessed."
+    -- end
+    -- print("File info: ", fileInfo)
+    local success, iterOrErr = pcall(lfs.lines, filepath)
+    if not success then return "File <" .. file .. "> does not exists. " .. iterOrErr end
+    for line in iterOrErr do
+        table.insert(fileContent, line)
+    end
+    -- check permissions:
+    local perm = fileContent[1]
+    table.remove(fileContent, 1)
+    if perm == '#readable' then
+        return table.concat(fileContent, "\n")
+    else
+        return "Permission denied!"
+    end
+end
+
 
 return fsutils

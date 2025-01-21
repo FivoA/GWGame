@@ -6,8 +6,14 @@ local Termfunc = {}
 -- terminal commands are here declared functions
 -- Syntax: function Termfunc.function(terminal, ...) <function body> end
 
-function Termfunc.cat(terminal)
-    terminal:println("NYI")
+function Termfunc.cat(terminal, ...) -- reworking...
+    local args = {...}
+    if #args ~= 1 then
+        terminal:println("Requires exactly one positional argmuent: <filename>")
+        return
+    end
+    local extracted = fsutils.extractFileContent(args[1])
+    terminal:println(extracted)
 end
 
 function Termfunc.cd(terminal, ...) -- reworked ->> TODO: Missing permission checks
@@ -85,7 +91,7 @@ function Termfunc.help(terminal)
     end
 end
 
-function Termfunc.hello(terminal) --  -- reworked (made it random and funny)
+function Termfunc.hello(terminal) -- reworked (made it random and funny)
     local greetings = {"Hello", "Hello World!", "Hi", "Hey", "Greetings", "Salutations", "Howdy", "All might to the AI", "We love the AI", "Always remeber: The AI sees everything."}
     local randomGreeting = greetings[math.random(#greetings)]
     terminal:println(randomGreeting)
@@ -107,7 +113,7 @@ end
 function Termfunc.ls(terminal) -- rewroked
     local files = lfs.getDirectoryItems(fsutils.toGameRelativePath(termcwd))
     for i, file in ipairs(files) do
-        local filename = fsutils.extract(file)
+        local filename = fsutils.extractFilename(file)
         if filename then terminal:println(filename) end
     end
 end
