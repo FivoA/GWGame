@@ -6,7 +6,7 @@ local Termfunc = {}
 -- terminal commands are here declared functions
 -- Syntax: function Termfunc.function(terminal, ...) <function body> end
 
-function Termfunc.cat(terminal, ...) -- reworking...
+function Termfunc.cat(terminal, ...) -- reworked -> TODO more permissions have to be added into the handler function
     local args = {...}
     if #args ~= 1 then
         terminal:println("Requires exactly one positional argmuent: <filename>")
