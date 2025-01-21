@@ -2,6 +2,9 @@ local roomScene = {}
 
 -- Room Scene Functions
 function roomScene.drawRoom()
+    -- set font accordingly
+    love.graphics.setFont(love.graphics.newFont(roomFontSize))
+
     -- display daily story helper msg
     if not displayedDaily then
         displayDailyHelpMsg(day)

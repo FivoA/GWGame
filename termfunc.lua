@@ -1,6 +1,6 @@
 require("filesystem")
 local fsutils = require("fsutils")
-
+local lfs = love.filesystem
 local Termfunc = {}
 -- pls organize in lexographic order for better readability
 -- terminal commands are here declared functions
@@ -10,41 +10,30 @@ function Termfunc.cat(terminal)
     terminal:println("NYI")
 end
 
-function Termfunc.cd(terminal, ...)
+function Termfunc.cd(terminal, ...) -- reworked ->> TODO: Missing permission checks
     local args = {...}
     if #args ~= 1 then
         terminal:println("Requires exactly one positional argmuent.")
         return
     end
 
-    local _currentPath = currentPath
+    local pathParts = {}
+    for part in string.gmatch(args[1], "[^/]+") do
+        table.insert(pathParts, part)
+    end
 
-    local pathParts = fsutils.splitPaths(args[1])
-    for _, subdir in ipairs(pathParts) do
-        if subdir == "." then
-            -- do nothing for current directory
-        elseif subdir == ".." then
-            table.remove(currentPath, #currentPath)
-        else
-            table.insert(currentPath, subdir)
-            local _dir, err = fsutils.navigate(currentPath, Filesystem)
-            if not _dir then
-                terminal:println(err)
-                goto restoreCurrentPath
-            end
-        end
+    for i, pathPart in ipairs(pathParts) do
+        -- print("Iteration: " .. i .. ", with pathPart: " .. pathPart)
+        fsutils.handlePathPart(pathPart)
     end
     
-    ::restoreCurrentPath::
-    currentPath = _currentPath
-    print("currentPath restored, because of error in subdir traversal")
 end
 
-function Termfunc.clear(terminal)
+function Termfunc.clear(terminal) -- reworked (dont need a rework)
     terminal.output = {}
 end
 
-function Termfunc.color(terminal, ...)
+function Termfunc.color(terminal, ...) -- reworked (dont need a rework)
     local args = {...}
     if #args ~= 3 then
         terminal:println("Exactly 3 parameters are required.")
@@ -65,17 +54,16 @@ function Termfunc.color(terminal, ...)
     termBG = {r / 255, g / 255, b / 255}
 end
 
-function Termfunc.cwd(terminal)
-    --terminal:println(lfs.currentdir())
+function Termfunc.cwd(terminal) -- reworked  (dont need a rework)
+    terminal:println(termcwd)
 end
 
-function Termfunc.echo(terminal, ...)
+function Termfunc.echo(terminal, ...)  -- reworked  (dont need a rework)
     local text = table.concat({...}, " ")
     table.insert(terminal.output, text)
 end
 
--- does not need the terminal since it's not printing anything
-function Termfunc.exit()
+function Termfunc.exit(terminal)  -- reworked  (dont need a rework)
     currentGamestate = "room"
 end
 
@@ -97,22 +85,30 @@ function Termfunc.help(terminal)
     end
 end
 
-function Termfunc.hello(terminal)
-    table.insert(terminal.output, "Hello, World!")
+function Termfunc.hello(terminal) --  -- reworked (made it random and funny)
+    local greetings = {"Hello", "Hello World!", "Hi", "Hey", "Greetings", "Salutations", "Howdy", "All might to the AI", "We love the AI", "Always remeber: The AI sees everything."}
+    local randomGreeting = greetings[math.random(#greetings)]
+    terminal:println(randomGreeting)
 end
 
-function Termfunc.ls(terminal)
-    local dir, err = fsutils.navigate(currentPath, Filesystem)
-    if not dir then
-        terminal:println(err)
+function Termfunc.info(terminal, ...)
+    local args = {...}
+    if #args ~= 1 then
+        terminal:println("Missing positional argument: filename")
         return
     end
-    for name, entry in pairs(dir) do
-        if isDirectory(entry) then
-            terminal:println(name .. "/")
-        elseif isFile(entry) then
-            terminal:println(name)
-        end
+
+    terminal:println(love.filesystem.getWorkingDirectory())
+    terminal:println(love.filesystem.getUserDirectory())
+    terminal:println(love.filesystem.getInfo(args[1]))
+
+end
+
+function Termfunc.ls(terminal) -- rewroked
+    local files = lfs.getDirectoryItems(fsutils.toGameRelativePath(termcwd))
+    for i, file in ipairs(files) do
+        local filename = fsutils.extract(file)
+        if filename then terminal:println(filename) end
     end
 end
 

@@ -79,7 +79,7 @@ function love.load() -- done once on game start up, load all assets and resource
 
     --base Rendering Settings
     love.graphics.setColor(1, 1, 1) -- sets no tint on rendered stuff
-    love.graphics.setNewFont(12)
+    love.graphics.setNewFont(roomFontSize)
 
     -- in-game objects
     -- code-manual

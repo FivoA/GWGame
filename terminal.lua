@@ -1,6 +1,8 @@
 local Terminal = {}
 Terminal.__index = Terminal
 
+local fsutils = require("fsutils")
+
 function Terminal.new()
     return setmetatable({
         input = "", -- Aktueller Eingabetext
@@ -18,7 +20,7 @@ end
 
 function Terminal:handleInput()
     if #self.input > 0 then
-        table.insert(self.output, "> " .. self.input) -- Zeige eingegebenen Text
+        table.insert(self.output, connectionState .. "$" .. termcwd .. "> " .. self.input) -- Zeige eingegebenen Text
         local args = {}
         for word in self.input:gmatch("%S+") do
             table.insert(args, word)
@@ -64,7 +66,7 @@ function Terminal:draw()
     end
 
     local cursor = self.cursorBlink and "|" or ""
-    love.graphics.print({termFontCol, "> " .. self.input .. cursor},
+    love.graphics.print({termFontCol, connectionState .. "$" .. termcwd .. "> " .. self.input .. cursor},
                         termSepX,
                         termSepY + #self.output * (terminalFontSize + termSepLine))
 end

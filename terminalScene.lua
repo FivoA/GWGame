@@ -17,6 +17,7 @@ function terminalScene.load()
         terminal:registerCommand("exit",  termfunc.exit)
         terminal:registerCommand("help", termfunc.help)
         terminal:registerCommand("hello", termfunc.hello)
+        terminal:registerCommand("info", termfunc.info)
         terminal:registerCommand("ls",  termfunc.ls)
         terminal:registerCommand("mkdir",  termfunc.mkdir)
     end
