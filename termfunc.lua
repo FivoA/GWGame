@@ -1,6 +1,4 @@
-print("Loading lfs in termfunc.lua...")
-local lfs = require("lfs")
-print("-> Loading lfs completed.")
+-- here should luafilesystem be required but the fuck it is doing
 
 require("filesystem")
 local fsutils = require("fsutils")
