@@ -5,8 +5,8 @@ function roomScene.drawRoom()
     -- display daily story helper msg
     if not displayedDaily then
         displayDailyHelpMsg(day)
-        love.graphics.draw(dailyBanner, (love.graphics.getWidth() /2 ) - (dailyBanner:getWidth()/2), 30, 0, 1, 1)
-        love.graphics.draw(dailyText, (love.graphics.getWidth() /2 ) - (dailyText:getWidth()/2) , (dailyBanner:getHeight()/2) - 35, 0, 1, 1)
+        love.graphics.draw(dailyBanner, (love.graphics.getWidth() /2 ) - (dailyBanner:getWidth()/2) + 75, 175, 0, 1, 1) 
+        love.graphics.draw(dailyText, (love.graphics.getWidth() /2 ) - (dailyText:getWidth()/2) +75, (dailyBanner:getHeight()/2) +  110, 0, 1, 1)
         love.graphics.draw(dailyX.image, dailyX.x, dailyX.y, 0, dailyX.scaleX, dailyX.scaleY)
     end
 
@@ -51,10 +51,8 @@ function roomScene.drawRoom()
         love.graphics.draw(manual.sprites.rightButton.image, manual.sprites.rightButton.position.x, manual.sprites.rightButton.position.y, 0 , manual.sprites.leftButton.scaleX, manual.sprites.leftButton.scaleY)
     end
 
-    -- Time and day system drawing
+    --  day system drawing
     roomScene.drawTime() -- creates drawable text
-    love.graphics.draw(clock, (love.graphics.getWidth()) - 137, 0, 0 , 0.38, 0.38)
-    love.graphics.draw(timeText, love.graphics.getWidth() -113, 30, 0, 1, 1)
     love.graphics.draw(clock, 20, 0, 0 , 0.38, 0.38)
     love.graphics.draw(dayText,  49, 30, 0, 1, 1)
 
@@ -84,15 +82,17 @@ function roomScene.updateRoom(dt)
         love.graphics.setBackgroundColor(color)
 
     else
-        fading = true
-        fadeTime = fadeTime + dt
-        if fadeTime < fadeDuration then
-            fadeAlpha = fadeTime / fadeDuration
-        else 
-            fading = false
-            fadeAlpha = 0
-            fadeTime = 0
-            resetDay()
+        if switchDay then -- set switchDay variable when we want to switch events after 24 hours!
+            fading = true
+            fadeTime = fadeTime + dt
+            if fadeTime < fadeDuration then
+                fadeAlpha = fadeTime / fadeDuration
+            else 
+                fading = false
+                fadeAlpha = 0
+                fadeTime = 0
+                resetDay()
+            end
         end
     end
 

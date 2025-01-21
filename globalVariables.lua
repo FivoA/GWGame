@@ -9,6 +9,7 @@ currentGamestate = "menu"
 muffinRemoved = false
 displayedDaily = false
 dailyText = nil
+switchDay = false
 -- Time system variables
 realSecondsPerInGameHour = 5
 gameTime = 8 * 3600
