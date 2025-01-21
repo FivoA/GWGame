@@ -1,3 +1,4 @@
+local lfs = require("lfs")
 require("filesystem")
 local fsutils = require("fsutils")
 
@@ -63,6 +64,10 @@ function Termfunc.color(terminal, ...)
         return
     end
     termBG = {r / 255, g / 255, b / 255}
+end
+
+function Termfunc.cwd(terminal)
+    terminal:println(lfs.currentdir())
 end
 
 function Termfunc.echo(terminal, ...)
