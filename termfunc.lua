@@ -73,7 +73,7 @@ function Termfunc.exit(terminal)  -- reworked  (dont need a rework)
     currentGamestate = "room"
 end
 
-function Termfunc.help(terminal)
+function Termfunc.help(terminal)   -- reworked  (dont need a rework)
     local _commands = {}
     for command in pairs(terminal.commands) do
         table.insert(_commands, command)
