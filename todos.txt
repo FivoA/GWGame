@@ -1,2 +1,1 @@
-- files system with permissions for folders -> _index_.gamefile for read permissions in folders
-- kelly and ai workspaces separate from each other where you can naviate in
+- _index_.gamefile for read permissions in folders
