@@ -110,7 +110,7 @@ function Termfunc.info(terminal, ...)
 
 end
 
-function Termfunc.ls(terminal) -- rewroked
+function Termfunc.ls(terminal) -- reworked
     local files = lfs.getDirectoryItems(fsutils.toGameRelativePath(termcwd))
     for i, file in ipairs(files) do
         local filename = fsutils.extractFilename(file)
