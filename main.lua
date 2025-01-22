@@ -79,10 +79,10 @@ function love.load() -- done once on game start up, load all assets and resource
 
     --base Rendering Settings
     love.graphics.setColor(1, 1, 1) -- sets no tint on rendered stuff
-    love.graphics.setNewFont(12)
+    love.graphics.setNewFont(roomFontSize)
 
     -- in-game objects
-    --code-manual
+    -- code-manual
     manual = {
         isOpen = false,
         position = {
@@ -90,8 +90,8 @@ function love.load() -- done once on game start up, load all assets and resource
             y= love.graphics.getHeight() - (bg:getHeight()) + 70
         },
         pages = {
-            "Command: Exists the terminal\n\nTo use: exit",
-            "Command: Change Directory\n\nTo use: cd <availible subdirectory> or cd .. (this goes to parent directory)",
+            "Command: Exits the terminal\n\nTo use: exit",
+            "Command: Change Directory\n\nTo use: cd <available subdirectory> or cd .. (this goes to parent directory)",
             "Command: Lists all subdirectories\n\nTo use: ls"
         }, -- we can dynamically add new pages for new terminal commands here!
         currentPage = 1,
