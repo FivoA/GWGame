@@ -90,12 +90,13 @@ function love.load() -- done once on game start up, load all assets and resource
             y= love.graphics.getHeight() - (bg:getHeight()) + 70
         },
         pages = {
-            "Command: Exits the terminal\n\nTo use: exit",
-            "Command: Change Directory\n\nTo use: cd <available subdirectory> or cd .. (this goes to parent directory)",
-            "Command: Lists all subdirectories\n\nTo use: ls"
+            "Command: Exists the terminal\n\nTo use: exit",
+            "Command: Change Directory\n\nTo use: cd <availible subdirectory> or cd .. (this goes to parent directory)",
+            "Command: Lists all subdirectories\n\nTo use: ls",
+            "Command: Report an Incident to AI Government to recieve support\n\nTo use: report <message>"
         }, -- we can dynamically add new pages for new terminal commands here!
         currentPage = 1,
-        pageCount = 3,
+        pageCount = 4,
         sprites = {
             open = {
                 image = love.graphics.newImage("assets/images/openBook.png"),
@@ -166,8 +167,8 @@ function love.load() -- done once on game start up, load all assets and resource
     dailyBanner = love.graphics.newImage("assets/images/dailyBanner.png")
     dailyX = {
         image = love.graphics.newImage("assets/images/xButton.png"),
-        x = (love.graphics.getWidth()/2) + (dailyBanner:getWidth()/2 ) - 25,
-        y = 40,
+        x = (love.graphics.getWidth()/2) + (dailyBanner:getWidth()/2 ) + 50,
+        y = 185,
         scaleX = 0.06,
         scaleY = 0.06
     }
@@ -234,6 +235,7 @@ function resetDay()
     day = day + 1
     displayedDaily = false
     love.graphics.setColor(1, 1, 1)
+    switchDay = false -- reset day switch, can set again like this on day 2!
 end
 
 -- game closing / playing
@@ -256,11 +258,11 @@ end
 
 function displayDailyHelpMsg(day)
     if day == 1 then
-        drawInfoBig("This is your Room Kelly! You spend all your days here, going through your old stuff and hanging out (mostly spending time on your computer though...)")
+        drawInfoBig("'Good mrrrning, citizen 3857! \nFor optimal vegetation, make mAKE sure to do your daily 50 push up---s-, water your room plants if you have any, and remember dwhakjbd!\nAs always, if anything si wrng, reprot it to us!1!'")
     elseif day == 2 then
-        drawInfoBig("Ah, new day new - Wait, somethings is off. Muffin??")
+        drawInfoBig("Gr0ood mirnnngi, citienze 3857! \nFro otmpial vegetionat, mAkE srue to ddo yuor dilya 50 phus--ups, wtare yuor roOmn plantz (iff u hAvE anY), aNd rmemebre dwahkajdb!\nAs aalwys, if enytihng si wRng, repprot ti ot uss!1!!")
     else
-        drawInfoBig("Time to bring out the big guns now Kelly. You need to take the AI down TODAY!")
+        drawInfoBig("You're not supposed to be here tbh, dont know how you got here...")
     end
 end
 
