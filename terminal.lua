@@ -48,7 +48,13 @@ function Terminal:handleInput()
 end
 
 function Terminal:println(text)
-    table.insert(self.output, text)
+    if text:find("\n") then
+        for line in text:gmatch("([^\n]*)\n?") do
+            table.insert(self.output, line)
+        end
+    else
+        table.insert(self.output, text)
+    end
 end
 
 function Terminal:update(dt)
@@ -60,8 +66,14 @@ function Terminal:update(dt)
 end
 
 function Terminal:draw()
+    local screenHeight = love.graphics.getHeight()
+    local maxLines = math.floor((screenHeight - termSepY) / (terminalFontSize + termSepLine)) -1
+
     for i, line in ipairs(self.output) do
-    -- love.graphics.print( text, x, y)
+    -- love.graphics.print(text, x, y)
+        if i > maxLines then
+            table.remove(self.output, 1)
+        end
         love.graphics.print({termFontCol, line}, termSepX, termSepY + (i - 1) * (terminalFontSize + termSepLine))
     end
 
@@ -69,6 +81,8 @@ function Terminal:draw()
     love.graphics.print({termFontCol, connectionState .. "$" .. termcwd .. "> " .. self.input .. cursor},
                         termSepX,
                         termSepY + #self.output * (terminalFontSize + termSepLine))
+
+    
 end
 
 function Terminal:textinput(t)
@@ -87,7 +101,7 @@ function Terminal:keypressed(key)
     elseif key == 'return' then
         self:handleInput()
     else
-        if #key == 1 then -- TODO: missing key down here for special characters liek / or $
+        if #key == 1 then -- TODO: missing key down here for special characters like / or $
             self:textinput(key)
         end
     end

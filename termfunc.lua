@@ -72,6 +72,34 @@ function Termfunc.exit(terminal)  -- reworked  (dont need a rework)
     currentGamestate = "room"
 end
 
+function Termfunc.hack(terminal, ...)
+    local args = {...}
+    if #args ~= 1 then
+        terminal:println("Required exactly one positional argument: <filename>")
+        return
+    end
+
+    local co = coroutine.create(function (terminal)
+        terminal:println("[" .. string.rep(" ", 10) .. "]")
+        for i = 1, 10 do
+            local progressBar = "Scanning: [" .. string.rep("#", i) .. string.rep(" ", 10 - i) .. "]"
+            table.remove(terminal.output, #terminal.output)
+            terminal:println("Scanning: " .. progressBar)
+            love.timer.sleep(0.2)
+            coroutine.yield()
+        end
+    end)
+
+    for i=0, 10 do
+        coroutine.resume(co)
+    end
+
+    
+    
+    local numToGuess = math.random(0, 10)
+
+end
+
 function Termfunc.help(terminal)   -- reworked  (dont need a rework)
     local _commands = {}
     for command in pairs(terminal.commands) do
@@ -103,9 +131,9 @@ function Termfunc.info(terminal, ...)
         return
     end
 
-    terminal:println(love.filesystem.getWorkingDirectory())
-    terminal:println(love.filesystem.getUserDirectory())
-    terminal:println(love.filesystem.getInfo(args[1]))
+    terminal:println(lfs.getWorkingDirectory())
+    terminal:println(lfs.getUserDirectory())
+    terminal:println(lfs.getInfo(args[1]))
 
 end
 
