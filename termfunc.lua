@@ -1,4 +1,3 @@
-require("filesystem")
 local fsutils = require("fsutils")
 local lfs = love.filesystem
 local Termfunc = {}

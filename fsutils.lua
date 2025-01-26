@@ -1,4 +1,3 @@
--- filesystem utils.lua
 local fsutils = {}
 local lfs = love.filesystem
 
@@ -39,12 +38,13 @@ function fsutils.handlePathPart(pathPart)
         if termcwd == '/' then return end
         -- terminal:println(termcwd)
         local parentDir = termcwd:match("/([^/]+)$")
-        print(parentDir)
+        -- print(parentDir)
         if parentDir then
             termcwd = termcwd:sub(1, -1*#parentDir -2)
         end
     else
         local potcwd = termcwd .. "/" .. pathPart
+        -- print(fsutils.isGameDirectory(potcwd))
         if fsutils.isGameDirectory(potcwd) then
             termcwd = potcwd
             return -- else do nothing lol
@@ -55,8 +55,9 @@ function fsutils.handlePathPart(pathPart)
 end
 
 function fsutils.isGameDirectory(potentialPath)
-    local files = love.filesystem.getDirectoryItems(fsutils.toGameRelativePath(potentialPath))
+    local files = lfs.getDirectoryItems(fsutils.toGameRelativePath(potentialPath))
         for _, file in ipairs(files) do
+            -- print(">>> " .. file)
             if file == "_index_.gamefile" then return true end
         end
     return false
