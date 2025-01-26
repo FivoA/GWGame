@@ -84,3 +84,4 @@ directories = {
 -- connectionState holds the current computer state and is used for path stripping
 connectionState = 'kelly'
 termcwd = "/home/user"
+hackedFiles = {}

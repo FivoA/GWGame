@@ -21,6 +21,7 @@ function terminalScene.load()
         terminal:registerCommand("info", termfunc.info)
         terminal:registerCommand("ls",  termfunc.ls)
         terminal:registerCommand("mkdir",  termfunc.mkdir)
+        terminal:registerCommand("scan",  termfunc.scan)
     end
 end
 

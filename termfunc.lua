@@ -74,30 +74,49 @@ end
 
 function Termfunc.hack(terminal, ...)
     local args = {...}
-    if #args ~= 1 then
-        terminal:println("Required exactly one positional argument: <filename>")
+    if #args ~= 2 then
+        terminal:println("Requires exactly two positional argument: <filename> <key>")
+        return
+    end
+    local filename = args[1]
+    local perm = fsutils.extractFilePermission(filename)
+    local params = {}
+    for param in string.gmatch(perm, "([^;]+)") do
+        table.insert(params, param)
+    end
+    print(table.concat(params, ' - ') .. " -> #params: " .. #params)
+    if #params < 3 then
+        print(#params .. " are invalid lenght to hack. Is the file " .. filename .. " really defined correctly? Pls check the header line!")
+        terminal:println("This file seems to be corrupted.")
         return
     end
 
-    local co = coroutine.create(function (terminal)
-        terminal:println("[" .. string.rep(" ", 10) .. "]")
-        for i = 1, 10 do
-            local progressBar = "Scanning: [" .. string.rep("#", i) .. string.rep(" ", 10 - i) .. "]"
-            table.remove(terminal.output, #terminal.output)
-            terminal:println("Scanning: " .. progressBar)
-            love.timer.sleep(0.2)
-            coroutine.yield()
+
+    if params[1] == "#hackable" then
+        if not hackedFiles[filename] then
+            terminal:println("This file seems to be hackable. Use scan first!")
+            return
+        elseif hackedFiles[filename] == -1 then
+            terminal:println(fsutils.extractFileContent(filename))
+        else
+            local guess = tonumber(args[2])
+            if not guess then
+                terminal:println("Pls enter a valid key (number)!")
+            elseif guess < tonumber(params[2]) or guess > tonumber(params[3]) then
+                terminal:println("Decryption key out of range!")
+            elseif guess < hackedFiles[filename] then
+                terminal:println("Attempting decryption...\nDecryption failed! Key to small.")
+            elseif guess > hackedFiles[filename] then
+                terminal:println("Attempting decryption...\nDecryption failed! Key to large")
+            elseif guess == hackedFiles[filename] then
+                terminal:println("Attempting decryption...\nDecryption successful!\n")
+                hackedFiles[filename] = -1
+                terminal:println(fsutils.extractFileContent(filename))
+            end
         end
-    end)
-
-    for i=0, 10 do
-        coroutine.resume(co)
+    else
+        terminal:println("This file seems to be not hackable!")
     end
-
-    
-    
-    local numToGuess = math.random(0, 10)
-
 end
 
 function Termfunc.help(terminal)   -- reworked  (dont need a rework)
@@ -183,6 +202,39 @@ end
 
 function Termfunc.rm(terminal)
     terminal:println("[ERROR] NYI")
+end
+
+function Termfunc.scan(terminal, ...)
+    local args = {...}
+    if #args ~= 1 then
+        terminal:println("Required exactly one positional argument: <filename>")
+        return
+    end
+    if not fsutils.isGameFile(args[1]) then
+        terminal:println("This does not seem like a file.")
+    end
+    local perm = fsutils.extractFilePermission(args[1])
+    local params = {}
+    for param in string.gmatch(perm, "([^;]+)") do
+        table.insert(params, param)
+    end
+
+    if params[1] ~= "#hackable" then
+        terminal:println("File is not hackable.")
+        return
+    end
+
+    local min, max = tonumber(params[2]), tonumber(params[3])
+    if not min or not max then
+        terminal:println("This file seems corrupted...")
+        return
+    end
+
+    terminal:println("Detected encryption key in range: [" .. min .. ";" .. max .. "]")
+
+    hackedFiles[args[1]] = math.random(min, max)
+    terminal:println("File can now be hacked with 'hack' and the right key.")
+    print("Added to hackedfiles: " .. hackedFiles[args[1]])
 end
 
 return Termfunc
