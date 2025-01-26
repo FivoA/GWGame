@@ -6,7 +6,7 @@ local Termfunc = {}
 -- Syntax: function Termfunc.function(terminal, ...) <function body> end
 
 function Termfunc.cat(terminal, ...) -- reworked -> TODO more permissions have to be added into the handler function
-    local args = {...}
+    local args = { ... }
     if #args ~= 1 then
         terminal:println("Requires exactly one positional argmuent: <filename>")
         return
@@ -16,7 +16,7 @@ function Termfunc.cat(terminal, ...) -- reworked -> TODO more permissions have t
 end
 
 function Termfunc.cd(terminal, ...) -- reworked ->> TODO: Missing permission checks
-    local args = {...}
+    local args = { ... }
     if #args ~= 1 then
         terminal:println("Requires exactly one positional argmuent.")
         return
@@ -31,7 +31,6 @@ function Termfunc.cd(terminal, ...) -- reworked ->> TODO: Missing permission che
         -- print("Iteration: " .. i .. ", with pathPart: " .. pathPart)
         fsutils.handlePathPart(pathPart)
     end
-    
 end
 
 function Termfunc.clear(terminal) -- reworked (dont need a rework)
@@ -39,7 +38,7 @@ function Termfunc.clear(terminal) -- reworked (dont need a rework)
 end
 
 function Termfunc.color(terminal, ...) -- reworked (dont need a rework)
-    local args = {...}
+    local args = { ... }
     if #args ~= 3 then
         terminal:println("Exactly 3 parameters are required.")
         return
@@ -56,24 +55,24 @@ function Termfunc.color(terminal, ...) -- reworked (dont need a rework)
         terminal:println("Parameters out of range. All parameters have to be in range [0, 255]")
         return
     end
-    termBG = {r / 255, g / 255, b / 255}
+    termBG = { r / 255, g / 255, b / 255 }
 end
 
 function Termfunc.cwd(terminal) -- reworked  (dont need a rework)
     terminal:println(termcwd)
 end
 
-function Termfunc.echo(terminal, ...)  -- reworked  (dont need a rework)
-    local text = table.concat({...}, " ")
+function Termfunc.echo(terminal, ...) -- reworked  (dont need a rework)
+    local text = table.concat({ ... }, " ")
     table.insert(terminal.output, text)
 end
 
-function Termfunc.exit(terminal)  -- reworked  (dont need a rework)
+function Termfunc.exit(terminal) -- reworked  (dont need a rework)
     currentGamestate = "room"
 end
 
 function Termfunc.hack(terminal, ...)
-    local args = {...}
+    local args = { ... }
     if #args ~= 2 then
         terminal:println("Requires exactly two positional argument: <filename> <key>")
         return
@@ -86,7 +85,9 @@ function Termfunc.hack(terminal, ...)
     end
     print(table.concat(params, ' - ') .. " -> #params: " .. #params)
     if #params < 3 then
-        print(#params .. " are invalid lenght to hack. Is the file " .. filename .. " really defined correctly? Pls check the header line!")
+        print(#params ..
+            " are invalid lenght to hack. Is the file " ..
+            filename .. " really defined correctly? Pls check the header line!")
         terminal:println("This file seems to be corrupted.")
         return
     end
@@ -119,7 +120,7 @@ function Termfunc.hack(terminal, ...)
     end
 end
 
-function Termfunc.help(terminal)   -- reworked  (dont need a rework)
+function Termfunc.help(terminal) -- reworked  (dont need a rework)
     local _commands = {}
     for command in pairs(terminal.commands) do
         table.insert(_commands, command)
@@ -127,24 +128,25 @@ function Termfunc.help(terminal)   -- reworked  (dont need a rework)
     table.sort(_commands)
     for i = 1, #_commands, 3 do
         local coms1 = string.format("%-20s", _commands[i] or "")
-        local coms2 = string.format("%-20s", _commands[i+1] or "")
-        local coms3 = string.format("%-20s", _commands[i+2] or "")
+        local coms2 = string.format("%-20s", _commands[i + 1] or "")
+        local coms3 = string.format("%-20s", _commands[i + 2] or "")
         -- print(coms1 .. " with length: " .. #coms1)
         -- print(coms2 .. " with length: " .. #coms2)
         -- print(coms3 .. " with length: " .. #coms3)
-        
+
         terminal:println(coms1 .. coms2 .. coms3)
     end
 end
 
 function Termfunc.hello(terminal) -- reworked (made it random and funny)
-    local greetings = {"Hello", "Hello World!", "Hi", "Hey", "Greetings", "Salutations", "Howdy", "All might to the AI", "We love the AI", "Always remeber: The AI sees everything."}
+    local greetings = { "Hello", "Hello World!", "Hi", "Hey", "Greetings", "Salutations", "Howdy", "All might to the AI",
+        "We love the AI", "Always remeber: The AI sees everything." }
     local randomGreeting = greetings[math.random(#greetings)]
     terminal:println(randomGreeting)
 end
 
 function Termfunc.info(terminal, ...)
-    local args = {...}
+    local args = { ... }
     if #args ~= 1 then
         terminal:println("Missing positional argument: filename")
         return
@@ -153,7 +155,6 @@ function Termfunc.info(terminal, ...)
     terminal:println(lfs.getWorkingDirectory())
     terminal:println(lfs.getUserDirectory())
     terminal:println(lfs.getInfo(args[1]))
-
 end
 
 function Termfunc.ls(terminal) -- reworked
@@ -165,7 +166,7 @@ function Termfunc.ls(terminal) -- reworked
 end
 
 function Termfunc.mkdir(terminal, ...)
-    local args = {...}
+    local args = { ... }
     if #args ~= 1 then
         terminal:println("Required one positional argument: <directory name>")
         return
@@ -196,8 +197,8 @@ function Termfunc.mkdir(terminal, ...)
         end
     end
 
-    terminal:println("Directory created successfully. -> HAHA but you cant see it with ls cause this function is still under dev!")
-    
+    terminal:println(
+        "Directory created successfully. -> HAHA but you cant see it with ls cause this function is still under dev!")
 end
 
 function Termfunc.rm(terminal)
@@ -205,7 +206,7 @@ function Termfunc.rm(terminal)
 end
 
 function Termfunc.scan(terminal, ...)
-    local args = {...}
+    local args = { ... }
     if #args ~= 1 then
         terminal:println("Required exactly one positional argument: <filename>")
         return

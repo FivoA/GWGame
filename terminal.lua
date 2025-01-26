@@ -5,12 +5,12 @@ local fsutils = require("fsutils")
 
 function Terminal.new()
     return setmetatable({
-        input = "", -- Aktueller Eingabetext
-        output = {}, -- Liste der Ausgaben
-        commands = {}, -- Registrierte Befehle
-        maxOutput = 100, -- Maximale Zeilen im Terminal
+        input = "",         -- Aktueller Eingabetext
+        output = {},        -- Liste der Ausgaben
+        commands = {},      -- Registrierte Befehle
+        maxOutput = 100,    -- Maximale Zeilen im Terminal
         cursorBlink = true, -- Blinker für Cursor
-        cursorTimer = 0 -- Timer für Cursor-Blinken
+        cursorTimer = 0     -- Timer für Cursor-Blinken
     }, Terminal)
 end
 
@@ -67,22 +67,20 @@ end
 
 function Terminal:draw()
     local screenHeight = love.graphics.getHeight()
-    local maxLines = math.floor((screenHeight - termSepY) / (terminalFontSize + termSepLine)) -1
+    local maxLines = math.floor((screenHeight - termSepY) / (terminalFontSize + termSepLine)) - 1
 
     for i, line in ipairs(self.output) do
-    -- love.graphics.print(text, x, y)
+        -- love.graphics.print(text, x, y)
         if i > maxLines then
             table.remove(self.output, 1)
         end
-        love.graphics.print({termFontCol, line}, termSepX, termSepY + (i - 1) * (terminalFontSize + termSepLine))
+        love.graphics.print({ termFontCol, line }, termSepX, termSepY + (i - 1) * (terminalFontSize + termSepLine))
     end
 
     local cursor = self.cursorBlink and "|" or ""
-    love.graphics.print({termFontCol, connectionState .. "$" .. termcwd .. "> " .. self.input .. cursor},
-                        termSepX,
-                        termSepY + #self.output * (terminalFontSize + termSepLine))
-
-    
+    love.graphics.print({ termFontCol, connectionState .. "$" .. termcwd .. "> " .. self.input .. cursor },
+        termSepX,
+        termSepY + #self.output * (terminalFontSize + termSepLine))
 end
 
 function Terminal:textinput(t)
@@ -100,6 +98,8 @@ function Terminal:keypressed(key)
         self:textinput(" ")
     elseif key == 'return' then
         self:handleInput()
+    elseif key == 'escape' then
+        currentGamestate = 'room'
     else
         if #key == 1 then -- TODO: missing key down here for special characters like / or $
             self:textinput(key)

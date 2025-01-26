@@ -4,7 +4,7 @@ local pauseScene = require("pauseScene")
 local roomScene = require("roomScene")
 local terminalScene = require("terminalScene")
 
-function love.load() -- done once on game start up, load all assets and resources
+function love.load()                                                      -- done once on game start up, load all assets and resources
     local screenWidth, screenHeight = love.window.getDesktopDimensions()
     love.window.setMode(screenWidth, screenHeight, { fullscreen = true }) -- just scales the game to fullscreen no matter what ur on
 
@@ -27,32 +27,32 @@ function love.load() -- done once on game start up, load all assets and resource
     switchHovered = love.graphics.newImage("assets/images/switchHovered.png")
 
     table.insert(items, {
-        image = {computer, computerHovered},
+        image = { computer, computerHovered },
         width = computer:getWidth(),
         height = computer:getHeight(),
-        x = (love.graphics.getWidth() / 2) - (bg:getWidth()/ 2) +370,
+        x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) + 370,
         y = love.graphics.getHeight() - (bg:getHeight()) + 220,
         rot = 0,
-        scaleX =  1.75,
-        scaleY =  1.75,
+        scaleX = 1.75,
+        scaleY = 1.75,
         isHovered = false
     })
     table.insert(items, {
-        image = {manual, manualHovered},
+        image = { manual, manualHovered },
         width = manual:getWidth(),
         height = manual:getHeight(),
-        x = (love.graphics.getWidth() / 2) - (bg:getWidth()/ 2) +220,
+        x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) + 220,
         y = love.graphics.getHeight() - (bg:getHeight()) + 240,
         rot = 0,
-        scaleX =  1.75,
-        scaleY =  1.75,
+        scaleX = 1.75,
+        scaleY = 1.75,
         isHovered = false
     })
     table.insert(items, {
-        image = {muffin, muffinHovered},
+        image = { muffin, muffinHovered },
         width = muffin:getWidth(),
         height = muffin:getHeight(),
-        x = (love.graphics.getWidth() / 2) - (bg:getWidth()/ 2) +330,
+        x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) + 330,
         y = love.graphics.getHeight() - (bg:getHeight()) + 410,
         rot = 0,
         scaleX = 1.75,
@@ -60,10 +60,10 @@ function love.load() -- done once on game start up, load all assets and resource
         isHovered = false
     })
     table.insert(items, {
-        image = {switch, switchHovered},
+        image = { switch, switchHovered },
         width = switch:getWidth(),
         height = switch:getHeight(),
-        x = (love.graphics.getWidth() / 2) - (bg:getWidth()/ 2) +510,
+        x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) + 510,
         y = love.graphics.getHeight() - (bg:getHeight()) + 360,
         rot = 0,
         scaleX = 1.75,
@@ -86,8 +86,8 @@ function love.load() -- done once on game start up, load all assets and resource
     manual = {
         isOpen = false,
         position = {
-            x= (love.graphics.getWidth() / 2) - (bg:getWidth()/ 2) -390,
-            y= love.graphics.getHeight() - (bg:getHeight()) + 70
+            x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) - 390,
+            y = love.graphics.getHeight() - (bg:getHeight()) + 70
         },
         pages = {
             "Command: Exists the terminal\n\nTo use: exit",
@@ -167,7 +167,7 @@ function love.load() -- done once on game start up, load all assets and resource
     dailyBanner = love.graphics.newImage("assets/images/dailyBanner.png")
     dailyX = {
         image = love.graphics.newImage("assets/images/xButton.png"),
-        x = (love.graphics.getWidth()/2) + (dailyBanner:getWidth()/2 ) + 50,
+        x = (love.graphics.getWidth() / 2) + (dailyBanner:getWidth() / 2) + 50,
         y = 185,
         scaleX = 0.06,
         scaleY = 0.06
@@ -189,7 +189,7 @@ function love.draw()
     end
 end
 
-function love.update(dt) 
+function love.update(dt)
     if currentGamestate == "room" then
         roomScene.updateRoom(dt)
     elseif currentGamestate == "paused" then
@@ -201,7 +201,7 @@ function love.update(dt)
     end
 end
 
-function love.mousepressed(x, y, button, istouch) 
+function love.mousepressed(x, y, button, istouch)
     if currentGamestate == "room" then
         roomScene.mousePressRoom(x, y, button, istouch)
     elseif currentGamestate == "paused" then
@@ -211,12 +211,11 @@ function love.mousepressed(x, y, button, istouch)
     end
 end
 
-
--- Other general Functions 
+-- Other general Functions
 
 function resetDay()
-     -- start next day!
-     if manual.isOpen then
+    -- start next day!
+    if manual.isOpen then
         manual.isOpen = false
     end
     if infoBoxVisible then
@@ -243,6 +242,7 @@ function love.keypressed(key)
     -- if in terminalScene then pass key handling to terminalScene
     if currentGamestate == "terminal" then
         terminalScene.keypressed(key)
+        return
     end
 
     if key == 'escape' then
@@ -258,9 +258,11 @@ end
 
 function displayDailyHelpMsg(day)
     if day == 1 then
-        drawInfoBig("'Good mrrrning, citizen 3857! \nFor optimal vegetation, make mAKE sure to do your daily 50 push up---s-, water your room plants if you have any, and remember dwhakjbd!\nAs always, if anything si wrng, reprot it to us!1!'")
+        drawInfoBig(
+            "'Good mrrrning, citizen 3857! \nFor optimal vegetation, make mAKE sure to do your daily 50 push up---s-, water your room plants if you have any, and remember dwhakjbd!\nAs always, if anything si wrng, reprot it to us!1!'")
     elseif day == 2 then
-        drawInfoBig("Gr0ood mirnnngi, citienze 3857! \nFro otmpial vegetionat, mAkE srue to ddo yuor dilya 50 phus--ups, wtare yuor roOmn plantz (iff u hAvE anY), aNd rmemebre dwahkajdb!\nAs aalwys, if enytihng si wRng, repprot ti ot uss!1!!")
+        drawInfoBig(
+            "Gr0ood mirnnngi, citienze 3857! \nFro otmpial vegetionat, mAkE srue to ddo yuor dilya 50 phus--ups, wtare yuor roOmn plantz (iff u hAvE anY), aNd rmemebre dwahkajdb!\nAs aalwys, if enytihng si wRng, repprot ti ot uss!1!!")
     else
         drawInfoBig("You're not supposed to be here tbh, dont know how you got here...")
     end
@@ -269,7 +271,8 @@ end
 -- draw big info about something! disappears after confirmation through click!
 function drawInfoBig(text)
     local bigFont = love.graphics.newFont(16)
-    dailyText = love.graphics.newText(bigFont, {{0, 0, 0}, string.format("%s", text)})
-    dailyText:setf({{0, 0, 0}, string.format("%s", text)}, 300, "center")
+    dailyText = love.graphics.newText(bigFont, { { 0, 0, 0 }, string.format("%s", text) })
+    dailyText:setf({ { 0, 0, 0 }, string.format("%s", text) }, 300, "center")
 end
+
 -- End General Functions
