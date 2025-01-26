@@ -232,6 +232,7 @@ function Termfunc.scan(terminal, ...)
 
     terminal:println("Detected encryption key in range: [" .. min .. ";" .. max .. "]")
 
+    math.randomseed(os.time())
     hackedFiles[args[1]] = math.random(min, max)
     terminal:println("File can now be hacked with 'hack' and the right key.")
     print("Added to hackedfiles: " .. hackedFiles[args[1]])
