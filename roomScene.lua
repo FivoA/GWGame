@@ -25,27 +25,28 @@ function roomScene.drawRoom()
 
     -- display daily story helper msg
     if not displayedDaily then
-        local x, y = calculateRelativePosition(bgX, bgY, bg:getWidth() * scale, bg:getHeight() * scale, 0.4, 0.1)
+        local xN, yN = calculateRelativePosition(bgX, bgY, bg:getWidth() * scale, bg:getHeight() * scale, 0.4, 0.07)
         displayDailyHelpMsg(day)
-        love.graphics.draw(dailyBanner, x, y, 0, 1, 1)
-        love.graphics.draw(dailyText,  x + (dailyBanner:getWidth() / 10),
-        y + (dailyBanner:getHeight() / 9), 0, 1, 1)
+        love.graphics.draw(dailyBanner, xN, yN, 0, 0.75 * scale, 0.75 * scale)
+        love.graphics.draw(dailyText,  xN + (dailyBanner:getWidth() / 10),
+        yN + (dailyBanner:getHeight() / 9), 0, 0.75 * scale, 0.75 *scale)
         love.graphics.draw(dailyX.image, dailyX.x, dailyX.y, 0, dailyX.scaleX, dailyX.scaleY)
     end
 
     -- remove muffin from item table on day 2 and add note!
     if (day == 2) and (not muffinRemoved) then
+        local xN, yN = calculateRelativePosition(bgX, bgY, bg:getWidth() * scale, bg:getHeight() * scale, 0.45, 0.45)
         muffinRemoved = true
         table.remove(items, 3)
         table.insert(items, 3, {
             image = { note, noteHovered },
             width = note:getWidth(),
             height = note:getHeight(),
-            x = (screenWidth / 2) - (bg:getWidth() *scaleXN / 2) + (screenWidth / 5.5),
-            y = screenHeight - (bg:getHeight() *scaleYN) + (screenHeight / 3),
+            x = xN,
+            y = yN,
             rot = 0,
-            scaleX = 1.25 * scaleXN,
-            scaleY = 1.25 * scaleYN,
+            scaleX = 1,
+            scaleY = 1,
             isHovered = false
         })
     end

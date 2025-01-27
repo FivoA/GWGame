@@ -184,9 +184,9 @@ function love.load() -- done once on game start up, load all assets and resource
     dailyX = {
         image = love.graphics.newImage("assets/images/xButton.png"),
         x = xN + (dailyBanner:getWidth()/1.05) ,
-        y = yN,
-        scaleX = 0.06,
-        scaleY = 0.06
+        y = yN - (dailyBanner:getHeight()/10),
+        scaleX = 0.06 *scale,
+        scaleY = 0.06 *scale
     }
 
 
