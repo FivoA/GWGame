@@ -179,12 +179,12 @@ function love.load() -- done once on game start up, load all assets and resource
     end
 
     --daily msg asset loading
-    local xN, yN = calculateRelativePosition(bgX, bgY, bg:getWidth() * scale, bg:getHeight() * scale, 0.4, 0.1)
+    local xN, yN = calculateRelativePosition(bgX, bgY, bg:getWidth() * scale, bg:getHeight() * scale, 0.4, 0.07)
     dailyBanner = love.graphics.newImage("assets/images/dailyBanner.png")
     dailyX = {
         image = love.graphics.newImage("assets/images/xButton.png"),
-        x = xN + (dailyBanner:getWidth()/1.05) ,
-        y = yN - (dailyBanner:getHeight()/10),
+        x = xN,
+        y = yN,
         scaleX = 0.06 *scale,
         scaleY = 0.06 *scale
     }

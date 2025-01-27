@@ -30,7 +30,7 @@ function roomScene.drawRoom()
         love.graphics.draw(dailyBanner, xN, yN, 0, 0.75 * scale, 0.75 * scale)
         love.graphics.draw(dailyText,  xN + (dailyBanner:getWidth() / 10),
         yN + (dailyBanner:getHeight() / 9), 0, 0.75 * scale, 0.75 *scale)
-        love.graphics.draw(dailyX.image, dailyX.x, dailyX.y, 0, dailyX.scaleX, dailyX.scaleY)
+        love.graphics.draw(dailyX.image, xN,yN, 0, dailyX.scaleX, dailyX.scaleY)
     end
 
     -- remove muffin from item table on day 2 and add note!
