@@ -1,11 +1,12 @@
-#hackable;0;10
+#hackable;0;1000
 - system: active
 - version: 1.4.2
 - user:
-    - admin: enabled
+    - admin: ai (enabled)
     - user: kelly (enabled)
     - user: muffin (disabled)
 - network-status: ai_encrypted_v11.4
 - security-level: high
 - backup:
     - last: 2163-10-05
+- network-bridge: n0t conn3cted

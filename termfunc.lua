@@ -213,6 +213,7 @@ function Termfunc.scan(terminal, ...)
     end
     if not fsutils.isGameFile(args[1]) then
         terminal:println("This does not seem like a file.")
+        return
     end
     local perm = fsutils.extractFilePermission(args[1])
     local params = {}

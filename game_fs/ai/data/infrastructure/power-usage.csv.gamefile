@@ -1,0 +1,6 @@
+#readable
+timestamp,region,total_usage_mwh,renewable_percentage,anomalies
+2063-12-04 08:00,Region A,512,87.5,none
+2063-12-04 12:00,Region B,640,92.0,none
+2063-12-04 18:00,Region C,788,85.0,temporary spike in Sector 7
+2063-12-04 22:00,Region D,410,88.9,none
