@@ -59,6 +59,7 @@ frameDuration = 0.2
 -- global terminal holder and variables
 terminal = nil
 terminalFontSize = 20
+terminalFont = love.graphics.newFont(terminalFontSize)
 termSepX = 50    -- terminal separator on x axis
 termSepY = 50    -- temrinal separator on y axis
 termSepLine = 10 --terminal separator between terminal lines

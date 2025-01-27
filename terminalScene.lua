@@ -29,7 +29,7 @@ end
 
 function terminalScene.draw()
     love.graphics.clear(termBG)
-    love.graphics.setFont(love.graphics.newFont(terminalFontSize))
+    love.graphics.setFont(terminalFont)
     love.graphics.setColor(termFontCol)
     terminal:draw()
 
