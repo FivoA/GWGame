@@ -4,10 +4,14 @@ local pauseScene = require("pauseScene")
 local roomScene = require("roomScene")
 local terminalScene = require("terminalScene")
 
-function love.load()                                                      -- done once on game start up, load all assets and resources
+function love.load() -- done once on game start up, load all assets and resources
+    local refWidth, refHeight = 1920, 1080                
     local screenWidth, screenHeight = love.window.getDesktopDimensions()
     love.window.setMode(screenWidth, screenHeight, { fullscreen = true }) -- just scales the game to fullscreen no matter what ur on
-
+    -- Scaling factors
+    scaleXN = screenWidth / refWidth
+    scaleYN = screenHeight / refHeight
+    
     --black
     blackBG = love.graphics.newImage("assets/images/blackBG.png")
     -- sprites
@@ -30,44 +34,44 @@ function love.load()                                                      -- don
         image = { computer, computerHovered },
         width = computer:getWidth(),
         height = computer:getHeight(),
-        x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) + (love.graphics.getWidth() / 5),
-        y = love.graphics.getHeight() - (bg:getHeight()) + (love.graphics.getHeight() / 6.5),
+        x = ((screenWidth / 2) - (bg:getWidth() * scaleXN / 2)) + (screenWidth / 5),
+        y = screenHeight - (bg:getHeight() * scaleYN) + (screenHeight / 6.5),
         rot = 0,
-        scaleX = 1.75,
-        scaleY = 1.75,
+        scaleX = 1.75 * scaleXN,
+        scaleY = 1.75 * scaleYN,
         isHovered = false
     })
     table.insert(items, {
         image = { manual, manualHovered },
         width = manual:getWidth(),
         height = manual:getHeight(),
-        x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) + (love.graphics.getWidth() / 7.5),
-        y = love.graphics.getHeight() - (bg:getHeight()) + (love.graphics.getHeight() / 5.5),
+        x = (screenWidth / 2) - (bg:getWidth() * scaleXN / 2) + (screenWidth / 7.5),
+        y = screenHeight - (bg:getHeight()* scaleYN) + (screenHeight / 5.5),
         rot = 0,
-        scaleX = 1.75,
-        scaleY = 1.75,
+        scaleX = 1.75 * scaleXN,
+        scaleY = 1.75 * scaleYN,
         isHovered = false
     })
     table.insert(items, {
         image = { muffin, muffinHovered },
         width = muffin:getWidth(),
         height = muffin:getHeight(),
-        x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) + (love.graphics.getWidth() / 5.5),
-        y = love.graphics.getHeight() - (bg:getHeight()) + (love.graphics.getHeight() / 3),
+        x = (screenWidth / 2) - (bg:getWidth() *scaleXN / 2) + (screenWidth / 5.5),
+        y = screenHeight - (bg:getHeight() * scaleYN) + (screenHeight / 3),
         rot = 0,
-        scaleX = 1.75,
-        scaleY = 1.75,
+        scaleX = 1.75 * scaleXN,
+        scaleY = 1.75 * scaleYN,
         isHovered = false
     })
     table.insert(items, {
         image = { switch, switchHovered },
         width = switch:getWidth(),
         height = switch:getHeight(),
-        x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) + (love.graphics.getWidth() / 3.5),
-        y = love.graphics.getHeight() - (bg:getHeight()) + (love.graphics.getHeight() / 3.5),
+        x = (screenWidth / 2) - (bg:getWidth()*scaleXN / 2) + (screenWidth / 3.5),
+        y = screenHeight - (bg:getHeight()* scaleYN) + (screenHeight / 3.5),
         rot = 0,
-        scaleX = 1.75,
-        scaleY = 1.75,
+        scaleX = 1.75 * scaleXN,
+        scaleY = 1.75 * scaleYN,
         isHovered = false
     })
 
