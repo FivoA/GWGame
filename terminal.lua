@@ -8,6 +8,8 @@ function Terminal.new()
         input = "",         -- Aktueller Eingabetext
         output = {},        -- Liste der Ausgaben
         commands = {},      -- Registrierte Befehle
+        history = {},       -- History mit pfeiltasten
+        historyindex = 1,   -- histroy index für history mit pfeiltasten
         maxOutput = 100,    -- Maximale Zeilen im Terminal
         cursorBlink = true, -- Blinker für Cursor
         cursorTimer = 0     -- Timer für Cursor-Blinken
@@ -20,6 +22,15 @@ end
 
 function Terminal:handleInput()
     if #self.input > 0 then
+        if #self.history == 0 then
+            table.insert(self.history, self.historyindex, self.input)
+            self.historyindex = #self.history + 1
+            -- print("// added " .. self.input .. " to history")
+        elseif #self.history >= 1 and not string.match(self.input, "^%s*" .. self.history[#self.history] .. "%s*$") then
+            table.insert(self.history, self.historyindex, self.input)
+            self.historyindex = #self.history + 1
+            -- print("// added " .. self.input .. " to history")
+        end
         table.insert(self.output, connectionState .. "$" .. termcwd .. "> " .. self.input) -- Zeige eingegebenen Text
         local args = {}
         for word in self.input:gmatch("%S+") do
@@ -107,6 +118,34 @@ end
 function Terminal:keypressed(key)
     if chatEnabled and key == "right" and love.keyboard.isDown("lctrl") then
         chatFocussed = true
+    elseif key == 'up' and #self.history > 0 then
+        -- print("// " .. key .. " - " .. #self.history .. " - " .. self.historyindex)
+        if self.historyindex == #self.history + 1 then
+            self.historyindex = self.historyindex - 1
+            self.input = self.history[self.historyindex]
+        elseif self.historyindex <= #self.history and self.historyindex > 1 then
+            self.historyindex = self.historyindex - 1
+            self.input = self.history[self.historyindex]
+        elseif self.historyindex <= 1 then
+            self.input = self.history[1]
+            self.historyindex = 1
+        end
+    elseif key == 'down' and #self.history > 0 then
+        -- print("// " .. key .. " - " .. #self.history .. " - " .. self.historyindex)
+        if self.historyindex == #self.history + 1 then
+            -- do nothing
+        elseif self.historyindex == #self.history then
+            self.historyindex = self.historyindex + 1
+            self.input = ""
+        elseif self.historyindex <=1 then
+            -- print(table.concat(self.history, '\t'))
+            self.historyindex = 2
+            self.input = self.history[self.historyindex]
+        elseif self.historyindex < #self.history then
+            self.historyindex = self.historyindex + 1
+            self.input = self.history[self.historyindex]
+        end
+        self.historyindex = self.historyindex
     elseif key == 'backspace' then
         if love.keyboard.isDown('lctrl') then
             self.input = self.input:gsub("%s*[^%s]+$", "")
