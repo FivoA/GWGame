@@ -1,4 +1,9 @@
 local roomScene = {}
+local refWidth, refHeight = 1920, 1080                
+local screenWidth, screenHeight = love.window.getDesktopDimensions()
+-- Scaling factors
+local scaleXN = screenWidth / refWidth
+local scaleYN = screenHeight / refHeight
 
 -- Room Scene Functions
 function roomScene.drawRoom()
@@ -23,18 +28,18 @@ function roomScene.drawRoom()
             image = { note, noteHovered },
             width = note:getWidth(),
             height = note:getHeight(),
-            x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) + (love.graphics.getWidth() / 5.5),
-            y = love.graphics.getHeight() - (bg:getHeight()) + (love.graphics.getHeight() / 3),
+            x = (screenWidth / 2) - (bg:getWidth() *scaleXN / 2) + (screenWidth / 5.5),
+            y = screenHeight - (bg:getHeight() *scaleYN) + (screenHeight / 3),
             rot = 0,
-            scaleX = 1.25,
-            scaleY = 1.25,
+            scaleX = 1.25 * scaleXN,
+            scaleY = 1.25 * scaleYN,
             isHovered = false
         })
     end
 
     -- background drawing
-    love.graphics.draw(bg, (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) - (love.graphics.getWidth() / 7),
-        love.graphics.getHeight() - (bg:getHeight()) - (love.graphics.getHeight() / 3), 0, 1.75, 1.75)
+    love.graphics.draw(bg, (screenWidth / 2) - (bg:getWidth() * scaleXN / 2) - (screenWidth / 7),
+    screenHeight - (bg:getHeight() * scaleYN) - (screenHeight / 3), 0, 1.75* scaleYN, 1.75* scaleYN)
     -- draw all clickable items in room
     for _, sprite in ipairs(items) do
         if sprite.isHovered then
