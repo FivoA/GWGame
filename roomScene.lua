@@ -1,17 +1,35 @@
 local roomScene = {}
 local screenWidth, screenHeight = love.window.getDesktopDimensions()
+local sX, sY, scale, bgX, bgY -- Declare these globally to calculate later in love.load()
+
+-- Function to calculate item positions relative to background
+local function calculateRelativePosition(bgX, bgY, bgWidth, bgHeight, relX, relY)
+    local absoluteX = bgX + (bgWidth * relX)
+    local absoluteY = bgY + (bgHeight * relY)
+    return absoluteX, absoluteY
+end
+
 -- Room Scene Functions
 function roomScene.drawRoom()
+            -- Calculate scale and positions after loading bg
+            sX = screenWidth / bg:getWidth()
+            sY = screenHeight / bg:getHeight()
+            scale = math.min(sX, sY)
+        
+            bgX = (screenWidth - (bg:getWidth() * scale)) / 2
+            bgY = (screenHeight - (bg:getHeight() * scale)) / 2
+    
     love.graphics.setColor(1, 1, 1)
     -- set font accordingly
     love.graphics.setFont(love.graphics.newFont(roomFontSize))
 
     -- display daily story helper msg
     if not displayedDaily then
+        local x, y = calculateRelativePosition(bgX, bgY, bg:getWidth() * scale, bg:getHeight() * scale, 0.4, 0.1)
         displayDailyHelpMsg(day)
-        love.graphics.draw(dailyBanner, (love.graphics.getWidth() / 2) - (dailyBanner:getWidth() / 2) + (love.graphics.getWidth() / 20), (love.graphics.getHeight() / 10), 0, 1, 1)
-        love.graphics.draw(dailyText, (love.graphics.getWidth() / 2) - (dailyText:getWidth() / 2) + (love.graphics.getWidth() / 20),
-        (love.graphics.getHeight() / 8), 0, 1, 1)
+        love.graphics.draw(dailyBanner, x, y, 0, 1, 1)
+        love.graphics.draw(dailyText,  x + (dailyBanner:getWidth() / 10),
+        y + (dailyBanner:getHeight() / 9), 0, 1, 1)
         love.graphics.draw(dailyX.image, dailyX.x, dailyX.y, 0, dailyX.scaleX, dailyX.scaleY)
     end
 
@@ -31,13 +49,6 @@ function roomScene.drawRoom()
             isHovered = false
         })
     end
-
-    -- background drawing
-    local sX = screenWidth/bg:getWidth()
-    local sY = screenHeight/bg:getHeight()
-
-    -- Use the smaller scale to maintain aspect ratio
-    local scale = math.min(sX, sY)
 
     love.graphics.draw(bg, (screenWidth - (bg:getWidth() * scale)) / 2,
     (screenHeight - (bg:getHeight() * scale)) / 2, 0, scale,  scale)

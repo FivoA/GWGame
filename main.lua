@@ -5,7 +5,6 @@ local roomScene = require("roomScene")
 local terminalScene = require("terminalScene")
 
 local screenWidth, screenHeight = love.window.getDesktopDimensions()
-local screenWidth, screenHeight = love.window.getDesktopDimensions()
 local sX, sY, scale, bgX, bgY -- Declare these globally to calculate later in love.load()
 
 -- Function to calculate item positions relative to background
@@ -53,20 +52,20 @@ function love.load() -- done once on game start up, load all assets and resource
         },
         {
             image = { manual, manualHovered },
-            relX = 0.2,
-            relY = 0.5,
+            relX = 0.36,
+            relY = 0.4,
             scale = 1
         },
         {
             image = { muffin, muffinHovered },
-            relX = 0.5,
-            relY = 0.7,
+            relX = 0.45,
+            relY = 0.5,
             scale = 1
         },
         {
             image = { switch, switchHovered },
-            relX = 0.6,
-            relY = 0.4,
+            relX = 0.58,
+            relY = 0.475,
             scale = 1
         }
     }
@@ -97,11 +96,12 @@ function love.load() -- done once on game start up, load all assets and resource
 
     -- in-game objects
     -- code-manual
+    local xN, yN = calculateRelativePosition(bgX, bgY, bg:getWidth() * scale, bg:getHeight() * scale, -0.2, 0.3)
     manual = {
         isOpen = false,
         position = {
-            x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) - (love.graphics.getWidth() / 5),
-            y = love.graphics.getHeight() - (bg:getHeight()) + (love.graphics.getHeight()/10)
+            x =  xN,
+            y = yN
         },
         pages = {
             "Command: Exists the terminal\n\nTo use: exit",
@@ -179,11 +179,12 @@ function love.load() -- done once on game start up, load all assets and resource
     end
 
     --daily msg asset loading
+    local xN, yN = calculateRelativePosition(bgX, bgY, bg:getWidth() * scale, bg:getHeight() * scale, 0.4, 0.1)
     dailyBanner = love.graphics.newImage("assets/images/dailyBanner.png")
     dailyX = {
         image = love.graphics.newImage("assets/images/xButton.png"),
-        x = (love.graphics.getWidth() / 2) + (dailyBanner:getWidth() / 2) + (love.graphics.getWidth() / 25),
-        y = (love.graphics.getHeight()/9.5),
+        x = xN + (dailyBanner:getWidth()/1.05) ,
+        y = yN,
         scaleX = 0.06,
         scaleY = 0.06
     }
