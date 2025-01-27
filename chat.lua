@@ -42,12 +42,17 @@ end
 
 function chat.keypressed(key)
     local currentNode = dialog[history[#history].node]
-    local selectedOption = currentNode.options[selectedOptionIndex]
     if key == "left" and love.keyboard.isDown("lctrl") then
-        chatFocussed = false
+        chatFocused = false
     elseif key == "return" then
+        if currentNode.options == nil then
+            return
+        end
+
+        local selectedOption = currentNode.options[selectedOptionIndex]
         history[#history].chosen = currentNode.options[selectedOptionIndex].text
         table.insert(history, { node = selectedOption.next, chosen = nil })
+        selectedOptionIndex = 1;
     elseif key == "down" then
         local optionCount = #currentNode.options
         if selectedOptionIndex < optionCount then

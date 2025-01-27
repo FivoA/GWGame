@@ -40,7 +40,7 @@ function terminalScene.draw()
 end
 
 function terminalScene.update(dt)
-    if chatEnabled and chatFocussed then
+    if chatEnabled and chatFocused then
     else
         terminal:update(dt)
     end
@@ -49,7 +49,7 @@ end
 function terminalScene.keypressed(key)
     if key == "escape" then
         currentScene = "room"
-    elseif chatEnabled and chatFocussed then
+    elseif chatEnabled and chatFocused then
         chat.keypressed(key)
     else
         terminal:keypressed(key)

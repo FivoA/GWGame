@@ -259,7 +259,7 @@ end
 
 function Termfunc.talk()
     chatEnabled = true
-    chatFocussed = true
+    chatFocused = true
 end
 
 return Termfunc

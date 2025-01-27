@@ -117,7 +117,7 @@ end
 
 function Terminal:keypressed(key)
     if chatEnabled and key == "right" and love.keyboard.isDown("lctrl") then
-        chatFocussed = true
+        chatFocused = true
     elseif key == 'up' and #self.history > 0 then
         -- print("// " .. key .. " - " .. #self.history .. " - " .. self.historyindex)
         if self.historyindex == #self.history + 1 then
@@ -137,7 +137,7 @@ function Terminal:keypressed(key)
         elseif self.historyindex == #self.history then
             self.historyindex = self.historyindex + 1
             self.input = ""
-        elseif self.historyindex <=1 then
+        elseif self.historyindex <= 1 then
             -- print(table.concat(self.history, '\t'))
             self.historyindex = 2
             self.input = self.history[self.historyindex]
