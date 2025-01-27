@@ -58,6 +58,23 @@ function Termfunc.color(terminal, ...) -- reworked (dont need a rework)
     termBG = { r / 255, g / 255, b / 255 }
 end
 
+function Termfunc.connect(terminal, ...)
+    local args = { ... }
+    if #args ~= 1 then
+        terminal:println("Requires exactly one positional argument: <conntection target name>")
+        return
+    end
+    if args[1] == 'ai' then
+        termcwd = ""
+        connectionState = 'ai'
+    elseif args[1] == 'kelly' then
+        termcwd = "/home/user"
+        connectionState = 'kelly'
+    else
+        terminal:println("Connection target unknown?!")
+    end
+end
+
 function Termfunc.cwd(terminal) -- reworked  (dont need a rework)
     terminal:println(termcwd)
 end
