@@ -78,7 +78,7 @@ end
 
 function Terminal:draw()
     local screenHeight = love.graphics.getHeight()
-    local maxWidth = love.graphics.getWidth() - 20 -- padding ig
+    local maxWidth = love.graphics.getWidth() -- padding ig
     -- local maxWidth = 100 -- padding ig
     if chatEnabled then maxWidth = maxWidth / 2 end
     local font = love.graphics.getFont()

@@ -41,26 +41,28 @@ function chat.draw()
 end
 
 function chat.keypressed(key)
-    local currentNode = dialog[history[#history].node]
     if key == "left" and love.keyboard.isDown("lctrl") then
         chatFocused = false
-    elseif key == "return" then
+    else
+        local currentNode = dialog[history[#history].node]
         if currentNode.options == nil then
             return
         end
 
-        local selectedOption = currentNode.options[selectedOptionIndex]
-        history[#history].chosen = currentNode.options[selectedOptionIndex].text
-        table.insert(history, { node = selectedOption.next, chosen = nil })
-        selectedOptionIndex = 1;
-    elseif key == "down" then
-        local optionCount = #currentNode.options
-        if selectedOptionIndex < optionCount then
-            selectedOptionIndex = selectedOptionIndex + 1
-        end
-    elseif key == "up" then
-        if 1 < selectedOptionIndex then
-            selectedOptionIndex = selectedOptionIndex - 1
+        if key == "return" then
+            local selectedOption = currentNode.options[selectedOptionIndex]
+            history[#history].chosen = currentNode.options[selectedOptionIndex].text
+            table.insert(history, { node = selectedOption.next, chosen = nil })
+            selectedOptionIndex = 1;
+        elseif key == "down" then
+            local optionCount = currentNode.options
+            if selectedOptionIndex < optionCount then
+                selectedOptionIndex = selectedOptionIndex + 1
+            end
+        elseif key == "up" then
+            if 1 < selectedOptionIndex then
+                selectedOptionIndex = selectedOptionIndex - 1
+            end
         end
     end
 end

@@ -59,10 +59,7 @@ frameDuration = 0.2
 -- global terminal holder and variables
 terminal = nil
 -- terminalFont = love.graphics.newFont("/assets/VCR_OSD_MONO.ttf", 32, "normal")
-terminalFont = love.graphics.newFont("/assets/VT323-Regular.ttf", 32, "normal")
-termSepX = 50    -- terminal separator on x axis
-termSepY = 50    -- temrinal separator on y axis
-termSepLine = 10 --terminal separator between terminal lines
+terminalFont = love.graphics.newFont("/assets/VT323-Regular.ttf", 28, "normal")
 termBG = { 7 / 255, 7 / 255, 7 / 255 }
 termFontCol = { 0, 1, 0 }
 chatEnabled = false

@@ -15,6 +15,8 @@ local function calculateRelativePosition(bgX, bgY, bgWidth, bgHeight, relX, relY
 end
 
 function love.load() -- done once on game start up, load all assets and resources
+    love.graphics.setDefaultFilter("nearest", "nearest", 8)
+
     love.window.setMode(screenWidth, screenHeight, { fullscreen = true }) -- just scales the game to fullscreen no matter what ur on
 
     --black
@@ -35,14 +37,14 @@ function love.load() -- done once on game start up, load all assets and resource
     switch = love.graphics.newImage("assets/images/switch.png")
     switchHovered = love.graphics.newImage("assets/images/switchHovered.png")
 
-        -- Calculate scale and positions after loading bg
-        sX = screenWidth / bg:getWidth()
-        sY = screenHeight / bg:getHeight()
-        scale = math.min(sX, sY)
-    
-        bgX = (screenWidth - (bg:getWidth() * scale)) / 2
-        bgY = (screenHeight - (bg:getHeight() * scale)) / 2
-    
+    -- Calculate scale and positions after loading bg
+    sX = screenWidth / bg:getWidth()
+    sY = screenHeight / bg:getHeight()
+    scale = math.min(sX, sY)
+
+    bgX = (screenWidth - (bg:getWidth() * scale)) / 2
+    bgY = (screenHeight - (bg:getHeight() * scale)) / 2
+
     local itemsRelative = {
         {
             image = { computer, computerHovered },
@@ -70,9 +72,10 @@ function love.load() -- done once on game start up, load all assets and resource
         }
     }
     for _, item in ipairs(itemsRelative) do
-        local x, y = calculateRelativePosition(bgX, bgY, bg:getWidth() * scale, bg:getHeight() * scale, item.relX, item.relY)
+        local x, y = calculateRelativePosition(bgX, bgY, bg:getWidth() * scale, bg:getHeight() * scale, item.relX,
+            item.relY)
         table.insert(items, {
-            image = {item.image[1], item.image[2]},
+            image = { item.image[1], item.image[2] },
             width = item.image[1]:getWidth(),
             height = item.image[1]:getHeight(),
             x = x,
@@ -100,7 +103,7 @@ function love.load() -- done once on game start up, load all assets and resource
     manual = {
         isOpen = false,
         position = {
-            x =  xN,
+            x = xN,
             y = yN
         },
         pages = {
@@ -185,8 +188,8 @@ function love.load() -- done once on game start up, load all assets and resource
         image = love.graphics.newImage("assets/images/xButton.png"),
         x = xN,
         y = yN,
-        scaleX = 0.06 *scale,
-        scaleY = 0.06 *scale
+        scaleX = 0.06 * scale,
+        scaleY = 0.06 * scale
     }
 
 
