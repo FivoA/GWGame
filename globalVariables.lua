@@ -1,9 +1,9 @@
-items = {} -- table with clickable items in room
+items = {}  -- table with clickable items in room
 manual = {} -- code manual
 
 --  scene system table, can be:
 -- "menu", "room", "paused", "terminal"
-currentGamestate = "menu"
+currentScene = "menu"
 
 -- day specific variables
 muffinRemoved = false
@@ -32,15 +32,15 @@ roomFontSize = 12
 
 -- day to night gradient system variables
 colors = {
-    day = {0.843, 0.910, 0.992},        -- 8:00 AM
-    evening = {0.243, 0.310, 0.412},    -- 6:00 PM
-    night = {0.031, 0.039, 0.086}       -- 11:59 PM
+    day = { 0.843, 0.910, 0.992 },     -- 8:00 AM
+    evening = { 0.243, 0.310, 0.412 }, -- 6:00 PM
+    night = { 0.031, 0.039, 0.086 }    -- 11:59 PM
 }
 -- fade effect variables
 fadeDuration = 3
 fadeTime = 0  -- time since fade started
 fading = false
-fadeAlpha = 0  -- Alpha value for fade
+fadeAlpha = 0 -- Alpha value for fade
 
 --manual book text variables
 manualPageText = nil
@@ -59,11 +59,13 @@ frameDuration = 0.2
 -- global terminal holder and variables
 terminal = nil
 terminalFontSize = 20
-termSepX = 50 -- terminal separator on x axis
-termSepY = 50 -- temrinal separator on y axis
+termSepX = 50    -- terminal separator on x axis
+termSepY = 50    -- temrinal separator on y axis
 termSepLine = 10 --terminal separator between terminal lines
-termBG = {7 / 255, 7 / 255, 7 / 255}
-termFontCol = {0, 1, 0}
+termBG = { 7 / 255, 7 / 255, 7 / 255 }
+termFontCol = { 0, 1, 0 }
+chatEnabled = false
+chatFocussed = false
 
 -- game directory handling
 local _system_cwd = love.filesystem.getWorkingDirectory()

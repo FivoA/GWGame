@@ -178,11 +178,11 @@ function love.load()                                                      -- don
 end
 
 function love.draw()
-    if currentGamestate == "room" then
+    if currentScene == "room" then
         roomScene.drawRoom()
-    elseif currentGamestate == "paused" then
+    elseif currentScene == "paused" then
         pauseScene.drawPause()
-    elseif currentGamestate == "terminal" then
+    elseif currentScene == "terminal" then
         terminalScene.draw()
     else
         menuScene.drawMenu()
@@ -190,11 +190,11 @@ function love.draw()
 end
 
 function love.update(dt)
-    if currentGamestate == "room" then
+    if currentScene == "room" then
         roomScene.updateRoom(dt)
-    elseif currentGamestate == "paused" then
+    elseif currentScene == "paused" then
         pauseScene.updatePause(dt)
-    elseif currentGamestate == "terminal" then
+    elseif currentScene == "terminal" then
         terminalScene.update(dt)
     else
         menuScene.updateMenu(dt)
@@ -202,9 +202,9 @@ function love.update(dt)
 end
 
 function love.mousepressed(x, y, button, istouch)
-    if currentGamestate == "room" then
+    if currentScene == "room" then
         roomScene.mousePressRoom(x, y, button, istouch)
-    elseif currentGamestate == "paused" then
+    elseif currentScene == "paused" then
         pauseScene.mousePressPause(x, y, button, istouch)
     else
         menuScene.mousePressMenu(x, y, button, istouch)
@@ -240,19 +240,19 @@ end
 -- game closing / playing
 function love.keypressed(key)
     -- if in terminalScene then pass key handling to terminalScene
-    if currentGamestate == "terminal" then
+    if currentScene == "terminal" then
         terminalScene.keypressed(key)
         return
     end
 
     if key == 'escape' then
-        if (currentGamestate == "room") then
-            currentGamestate = "paused"
+        if (currentScene == "room") then
+            currentScene = "paused"
         else
             love.event.quit() -- only instant quit from main menu or pause menu
         end
-    elseif key == 'space' and (currentGamestate == "menu" or currentGamestate == "paused") then
-        currentGamestate = "room"
+    elseif key == 'space' and (currentScene == "menu" or currentScene == "paused") then
+        currentScene = "room"
     end
 end
 

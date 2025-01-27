@@ -67,20 +67,37 @@ end
 
 function Terminal:draw()
     local screenHeight = love.graphics.getHeight()
-    local maxLines = math.floor((screenHeight - termSepY) / (terminalFontSize + termSepLine)) - 1
+    local maxWidth = love.graphics.getWidth() - 20 -- padding ig
+    -- local maxWidth = 100 -- padding ig
+    if chatEnabled then maxWidth = maxWidth / 2 end
+    local font = love.graphics.getFont()
 
-    for i, line in ipairs(self.output) do
-        -- love.graphics.print(text, x, y)
-        if i > maxLines then
-            table.remove(self.output, 1)
+    local lineHeight = font:getHeight()
+    local maxLines = screenHeight / lineHeight - 1
+
+    local totalWrappedLines = {}
+    for _, line in ipairs(self.output) do
+        local _, wrappedLines = font:getWrap(line, maxWidth)
+        for _, wrappedLine in ipairs(wrappedLines) do
+            table.insert(totalWrappedLines, wrappedLine)
         end
-        love.graphics.print({ termFontCol, line }, termSepX, termSepY + (i - 1) * (terminalFontSize + termSepLine))
     end
 
     local cursor = self.cursorBlink and "|" or ""
-    love.graphics.print({ termFontCol, connectionState .. "$" .. termcwd .. "> " .. self.input .. cursor },
-        termSepX,
-        termSepY + #self.output * (terminalFontSize + termSepLine))
+    local prompt = connectionState .. "$" .. termcwd .. "> " .. self.input .. cursor
+
+    table.insert(totalWrappedLines, prompt)
+
+    -- handle vertical overflow
+    local overflow = #totalWrappedLines - maxLines
+    if overflow > 0 then
+        for i = 1, overflow do
+            table.remove(totalWrappedLines, i)
+        end
+    end
+
+    local totalString = table.concat(totalWrappedLines, "\n")
+    love.graphics.print(totalString, 10, 10)
 end
 
 function Terminal:textinput(t)
@@ -88,7 +105,9 @@ function Terminal:textinput(t)
 end
 
 function Terminal:keypressed(key)
-    if key == 'backspace' then
+    if chatEnabled and key == "right" and love.keyboard.isDown("lctrl") then
+        chatFocussed = true
+    elseif key == 'backspace' then
         if love.keyboard.isDown('lctrl') then
             self.input = self.input:gsub("%s*[^%s]+$", "")
         else
@@ -98,8 +117,6 @@ function Terminal:keypressed(key)
         self:textinput(" ")
     elseif key == 'return' then
         self:handleInput()
-    elseif key == 'escape' then
-        currentGamestate = 'room'
     else
         if #key == 1 then -- TODO: missing key down here for special characters like / or $
             self:textinput(key)

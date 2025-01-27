@@ -68,7 +68,7 @@ function Termfunc.echo(terminal, ...) -- reworked  (dont need a rework)
 end
 
 function Termfunc.exit(terminal) -- reworked  (dont need a rework)
-    currentGamestate = "room"
+    currentScene = "room"
 end
 
 function Termfunc.hack(terminal, ...)
@@ -237,6 +237,11 @@ function Termfunc.scan(terminal, ...)
     hackedFiles[args[1]] = math.random(min, max)
     terminal:println("File can now be hacked with 'hack' and the right key.")
     print("Added to hackedfiles: " .. hackedFiles[args[1]])
+end
+
+function Termfunc.talk()
+    chatEnabled = true
+    chatFocussed = true
 end
 
 return Termfunc
