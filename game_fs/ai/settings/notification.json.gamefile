@@ -1,0 +1,14 @@
+#readable
+[General]
+alerts_enabled = true
+daily_summary_time = "20:00 UTC"
+critical_alert_level = "HIGH"
+
+[Notification_Channels]
+email = "admin_core@central-ai.net"
+notify_cluster_ip = "916.776.196.458"
+internal_logs = true
+
+[Special Alerts]
+prio_project_updates = "Eden Prime (only)"
+priority_override = "Enabled"
