@@ -4,14 +4,20 @@ local pauseScene = require("pauseScene")
 local roomScene = require("roomScene")
 local terminalScene = require("terminalScene")
 
+local screenWidth, screenHeight = love.window.getDesktopDimensions()
+local screenWidth, screenHeight = love.window.getDesktopDimensions()
+local sX, sY, scale, bgX, bgY -- Declare these globally to calculate later in love.load()
+
+-- Function to calculate item positions relative to background
+local function calculateRelativePosition(bgX, bgY, bgWidth, bgHeight, relX, relY)
+    local absoluteX = bgX + (bgWidth * relX)
+    local absoluteY = bgY + (bgHeight * relY)
+    return absoluteX, absoluteY
+end
+
 function love.load() -- done once on game start up, load all assets and resources
-    local refWidth, refHeight = 1920, 1080                
-    local screenWidth, screenHeight = love.window.getDesktopDimensions()
     love.window.setMode(screenWidth, screenHeight, { fullscreen = true }) -- just scales the game to fullscreen no matter what ur on
-    -- Scaling factors
-    scaleXN = screenWidth / refWidth
-    scaleYN = screenHeight / refHeight
-    
+
     --black
     blackBG = love.graphics.newImage("assets/images/blackBG.png")
     -- sprites
@@ -30,50 +36,54 @@ function love.load() -- done once on game start up, load all assets and resource
     switch = love.graphics.newImage("assets/images/switch.png")
     switchHovered = love.graphics.newImage("assets/images/switchHovered.png")
 
-    table.insert(items, {
-        image = { computer, computerHovered },
-        width = computer:getWidth(),
-        height = computer:getHeight(),
-        x = ((screenWidth / 2) - (bg:getWidth() * scaleXN / 2)) + (screenWidth / 5),
-        y = screenHeight - (bg:getHeight() * scaleYN) + (screenHeight / 6.5),
-        rot = 0,
-        scaleX = 1.75 * scaleXN,
-        scaleY = 1.75 * scaleYN,
-        isHovered = false
-    })
-    table.insert(items, {
-        image = { manual, manualHovered },
-        width = manual:getWidth(),
-        height = manual:getHeight(),
-        x = (screenWidth / 2) - (bg:getWidth() * scaleXN / 2) + (screenWidth / 7.5),
-        y = screenHeight - (bg:getHeight()* scaleYN) + (screenHeight / 5.5),
-        rot = 0,
-        scaleX = 1.75 * scaleXN,
-        scaleY = 1.75 * scaleYN,
-        isHovered = false
-    })
-    table.insert(items, {
-        image = { muffin, muffinHovered },
-        width = muffin:getWidth(),
-        height = muffin:getHeight(),
-        x = (screenWidth / 2) - (bg:getWidth() *scaleXN / 2) + (screenWidth / 5.5),
-        y = screenHeight - (bg:getHeight() * scaleYN) + (screenHeight / 3),
-        rot = 0,
-        scaleX = 1.75 * scaleXN,
-        scaleY = 1.75 * scaleYN,
-        isHovered = false
-    })
-    table.insert(items, {
-        image = { switch, switchHovered },
-        width = switch:getWidth(),
-        height = switch:getHeight(),
-        x = (screenWidth / 2) - (bg:getWidth()*scaleXN / 2) + (screenWidth / 3.5),
-        y = screenHeight - (bg:getHeight()* scaleYN) + (screenHeight / 3.5),
-        rot = 0,
-        scaleX = 1.75 * scaleXN,
-        scaleY = 1.75 * scaleYN,
-        isHovered = false
-    })
+        -- Calculate scale and positions after loading bg
+        sX = screenWidth / bg:getWidth()
+        sY = screenHeight / bg:getHeight()
+        scale = math.min(sX, sY)
+    
+        bgX = (screenWidth - (bg:getWidth() * scale)) / 2
+        bgY = (screenHeight - (bg:getHeight() * scale)) / 2
+    
+    local itemsRelative = {
+        {
+            image = { computer, computerHovered },
+            relX = 0.48,
+            relY = 0.38,
+            scale = 1
+        },
+        {
+            image = { manual, manualHovered },
+            relX = 0.2,
+            relY = 0.5,
+            scale = 1
+        },
+        {
+            image = { muffin, muffinHovered },
+            relX = 0.5,
+            relY = 0.7,
+            scale = 1
+        },
+        {
+            image = { switch, switchHovered },
+            relX = 0.6,
+            relY = 0.4,
+            scale = 1
+        }
+    }
+    for _, item in ipairs(itemsRelative) do
+        local x, y = calculateRelativePosition(bgX, bgY, bg:getWidth() * scale, bg:getHeight() * scale, item.relX, item.relY)
+        table.insert(items, {
+            image = {item.image[1], item.image[2]},
+            width = item.image[1]:getWidth(),
+            height = item.image[1]:getHeight(),
+            x = x,
+            y = y,
+            rot = 0,
+            scaleX = item.scale * scale,
+            scaleY = item.scale * scale,
+            isHovered = false
+        })
+    end
 
     --music
     backgroundMusic = love.audio.newSource("assets/sounds/bgmusic.wav", "stream")
@@ -177,6 +187,8 @@ function love.load() -- done once on game start up, load all assets and resource
         scaleX = 0.06,
         scaleY = 0.06
     }
+
+
 
     love.graphics.setNewFont(14)
     terminalScene.load()

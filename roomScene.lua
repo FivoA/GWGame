@@ -1,10 +1,5 @@
 local roomScene = {}
-local refWidth, refHeight = 1920, 1080                
 local screenWidth, screenHeight = love.window.getDesktopDimensions()
--- Scaling factors
-local scaleXN = screenWidth / refWidth
-local scaleYN = screenHeight / refHeight
-
 -- Room Scene Functions
 function roomScene.drawRoom()
     love.graphics.setColor(1, 1, 1)
@@ -38,8 +33,14 @@ function roomScene.drawRoom()
     end
 
     -- background drawing
-    love.graphics.draw(bg, (screenWidth / 2) - (bg:getWidth() * scaleXN / 2) - (screenWidth / 7),
-    screenHeight - (bg:getHeight() * scaleYN) - (screenHeight / 3), 0, 1.75* scaleYN, 1.75* scaleYN)
+    local sX = screenWidth/bg:getWidth()
+    local sY = screenHeight/bg:getHeight()
+
+    -- Use the smaller scale to maintain aspect ratio
+    local scale = math.min(sX, sY)
+
+    love.graphics.draw(bg, (screenWidth - (bg:getWidth() * scale)) / 2,
+    (screenHeight - (bg:getHeight() * scale)) / 2, 0, scale,  scale)
     -- draw all clickable items in room
     for _, sprite in ipairs(items) do
         if sprite.isHovered then
