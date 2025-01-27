@@ -9,9 +9,9 @@ function roomScene.drawRoom()
     -- display daily story helper msg
     if not displayedDaily then
         displayDailyHelpMsg(day)
-        love.graphics.draw(dailyBanner, (love.graphics.getWidth() / 2) - (dailyBanner:getWidth() / 2) + 75, 175, 0, 1, 1)
-        love.graphics.draw(dailyText, (love.graphics.getWidth() / 2) - (dailyText:getWidth() / 2) + 75,
-            (dailyBanner:getHeight() / 2) + 110, 0, 1, 1)
+        love.graphics.draw(dailyBanner, (love.graphics.getWidth() / 2) - (dailyBanner:getWidth() / 2) + (love.graphics.getWidth() / 20), (love.graphics.getHeight() / 10), 0, 1, 1)
+        love.graphics.draw(dailyText, (love.graphics.getWidth() / 2) - (dailyText:getWidth() / 2) + (love.graphics.getWidth() / 20),
+        (love.graphics.getHeight() / 8), 0, 1, 1)
         love.graphics.draw(dailyX.image, dailyX.x, dailyX.y, 0, dailyX.scaleX, dailyX.scaleY)
     end
 
@@ -23,8 +23,8 @@ function roomScene.drawRoom()
             image = { note, noteHovered },
             width = note:getWidth(),
             height = note:getHeight(),
-            x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) + 330,
-            y = love.graphics.getHeight() - (bg:getHeight()) + 410,
+            x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) + (love.graphics.getWidth() / 5.5),
+            y = love.graphics.getHeight() - (bg:getHeight()) + (love.graphics.getHeight() / 3),
             rot = 0,
             scaleX = 1.25,
             scaleY = 1.25,
@@ -33,8 +33,8 @@ function roomScene.drawRoom()
     end
 
     -- background drawing
-    love.graphics.draw(bg, (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) - 300,
-        love.graphics.getHeight() - (bg:getHeight()) - 310, 0, 1.75, 1.75)
+    love.graphics.draw(bg, (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) - (love.graphics.getWidth() / 7),
+        love.graphics.getHeight() - (bg:getHeight()) - (love.graphics.getHeight() / 3), 0, 1.75, 1.75)
     -- draw all clickable items in room
     for _, sprite in ipairs(items) do
         if sprite.isHovered then
@@ -63,15 +63,17 @@ function roomScene.drawRoom()
 
     --  day system drawing
     roomScene.drawTime() -- creates drawable text
-    love.graphics.draw(clock, 20, 0, 0, 0.38, 0.38)
-    love.graphics.draw(dayText, 49, 30, 0, 1, 1)
+    love.graphics.draw(clock, (love.graphics.getWidth() / 100), 0, 0, 0.38, 0.38)
+    love.graphics.draw(dayText, (love.graphics.getWidth() / 35), (love.graphics.getHeight() / 35), 0, 1, 1)
 
     --infobox drawing
     if infoBoxVisible then
         love.graphics.draw(infoBox, (love.graphics.getWidth() / 2) - (infoBox:getWidth() / 2),
-            love.graphics.getHeight() - (infoBox:getHeight()) - 20, 0, 1, 1)
+            love.graphics.getHeight() - (infoBox:getHeight()) - (love.graphics.getHeight() / 100), 0, 1, 1)
+
         love.graphics.draw(infoBoxText, (love.graphics.getWidth() / 2) - (infoBox:getWidth() * 0.5 / 2),
-            love.graphics.getHeight() - (infoBox:getHeight() * 0.5) - 55)
+            love.graphics.getHeight() - (infoBox:getHeight() * 0.5) - (love.graphics.getHeight() / 30))
+
     end
 
     -- fade drawing

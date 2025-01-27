@@ -30,8 +30,8 @@ function love.load()                                                      -- don
         image = { computer, computerHovered },
         width = computer:getWidth(),
         height = computer:getHeight(),
-        x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) + 370,
-        y = love.graphics.getHeight() - (bg:getHeight()) + 220,
+        x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) + (love.graphics.getWidth() / 5),
+        y = love.graphics.getHeight() - (bg:getHeight()) + (love.graphics.getHeight() / 6.5),
         rot = 0,
         scaleX = 1.75,
         scaleY = 1.75,
@@ -41,8 +41,8 @@ function love.load()                                                      -- don
         image = { manual, manualHovered },
         width = manual:getWidth(),
         height = manual:getHeight(),
-        x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) + 220,
-        y = love.graphics.getHeight() - (bg:getHeight()) + 240,
+        x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) + (love.graphics.getWidth() / 7.5),
+        y = love.graphics.getHeight() - (bg:getHeight()) + (love.graphics.getHeight() / 5.5),
         rot = 0,
         scaleX = 1.75,
         scaleY = 1.75,
@@ -52,8 +52,8 @@ function love.load()                                                      -- don
         image = { muffin, muffinHovered },
         width = muffin:getWidth(),
         height = muffin:getHeight(),
-        x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) + 330,
-        y = love.graphics.getHeight() - (bg:getHeight()) + 410,
+        x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) + (love.graphics.getWidth() / 5.5),
+        y = love.graphics.getHeight() - (bg:getHeight()) + (love.graphics.getHeight() / 3),
         rot = 0,
         scaleX = 1.75,
         scaleY = 1.75,
@@ -63,8 +63,8 @@ function love.load()                                                      -- don
         image = { switch, switchHovered },
         width = switch:getWidth(),
         height = switch:getHeight(),
-        x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) + 510,
-        y = love.graphics.getHeight() - (bg:getHeight()) + 360,
+        x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) + (love.graphics.getWidth() / 3.5),
+        y = love.graphics.getHeight() - (bg:getHeight()) + (love.graphics.getHeight() / 3.5),
         rot = 0,
         scaleX = 1.75,
         scaleY = 1.75,
@@ -86,17 +86,18 @@ function love.load()                                                      -- don
     manual = {
         isOpen = false,
         position = {
-            x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) - 390,
-            y = love.graphics.getHeight() - (bg:getHeight()) + 70
+            x = (love.graphics.getWidth() / 2) - (bg:getWidth() / 2) - (love.graphics.getWidth() / 5),
+            y = love.graphics.getHeight() - (bg:getHeight()) + (love.graphics.getHeight()/10)
         },
         pages = {
             "Command: Exists the terminal\n\nTo use: exit",
             "Command: Change Directory\n\nTo use: cd <availible subdirectory> or cd .. (this goes to parent directory)",
-            "Command: Lists all subdirectories\n\nTo use: ls",
-            "Command: Report an Incident to AI Government to recieve support\n\nTo use: report <message>"
+            "Command: Lists all files subdirectories\n\nTo use: ls",
+            "Command: Report an Incident to AI Government to recieve support\n\nTo use: report <message>",
+            "Command: Check if a support agent is availible after report and ready to talk\n\nTo use: talk"
         }, -- we can dynamically add new pages for new terminal commands here!
         currentPage = 1,
-        pageCount = 4,
+        pageCount = 5,
         sprites = {
             open = {
                 image = love.graphics.newImage("assets/images/openBook.png"),
@@ -167,8 +168,8 @@ function love.load()                                                      -- don
     dailyBanner = love.graphics.newImage("assets/images/dailyBanner.png")
     dailyX = {
         image = love.graphics.newImage("assets/images/xButton.png"),
-        x = (love.graphics.getWidth() / 2) + (dailyBanner:getWidth() / 2) + 50,
-        y = 185,
+        x = (love.graphics.getWidth() / 2) + (dailyBanner:getWidth() / 2) + (love.graphics.getWidth() / 25),
+        y = (love.graphics.getHeight()/9.5),
         scaleX = 0.06,
         scaleY = 0.06
     }
