@@ -59,6 +59,10 @@ function Termfunc.color(terminal, ...) -- reworked (dont need a rework)
 end
 
 function Termfunc.connect(terminal, ...)
+    if day == 1 then
+        terminal:println("[Error 503] Service unavailable!")
+        return
+    end
     local args = { ... }
     if #args ~= 1 then
         terminal:println("Requires exactly one positional argument: <conntection target name>")
@@ -219,10 +223,13 @@ function Termfunc.mkdir(terminal, ...)
 end
 
 function Termfunc.report(terminal)
-    terminal:println("Fetching citizen id...")
-    terminal:println("Report created for citizen with id Citizen#3857")
     if day == 1 then
-        switchDay = true
+        terminal:println("Report created for citizen with id Citizen#3857")
+        terminal:println("Fetching citizen id...")
+        dayswitch = true
+        terminal:println("A worker will be available for you tomorow!\nUse talk <workername> to receive.")
+    else
+        terminal:println("Analyzing...\nNothing errors found. Nothing to report")
     end
 end
 
@@ -281,7 +288,6 @@ function Termfunc.talk(terminal, ...)
             terminal:println("403: Forbidden. You're not meant to be here yet.")
             return
         end
-
 
         chatEnabled = true
         chatFocused = true
