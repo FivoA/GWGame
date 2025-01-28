@@ -6,6 +6,13 @@ local startX = love.graphics.getWidth() / 2
 
 local selectedOptionIndex = 1
 
+bg = love.graphics.newImage("assets/images/room.png")
+local screenWidth, screenHeight = love.window.getDesktopDimensions()
+local sX, sY, scale, bgX, bgY -- Declare these globally to calculate later in love.load()
+sX = screenWidth / bg:getWidth()
+sY = screenHeight / bg:getHeight()
+scale = math.min(sX, sY)
+
 function chat.draw()
     local lines = {}
     for _, entry in ipairs(history) do
@@ -37,7 +44,8 @@ function chat.draw()
     end
 
     local totalString = table.concat(totalWrappedLines, "\n")
-    love.graphics.print(totalString, startX + 10, 10)
+
+    love.graphics.print(totalString, startX + (30 * scale), 10)
 end
 
 function chat.keypressed(key)

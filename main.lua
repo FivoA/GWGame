@@ -119,7 +119,7 @@ function love.load() -- done once on game start up, load all assets and resource
             "Command: Get a greeting\n\nTo use: hello",
             "Command: Change Directory\n\nTo use: cd <availible subdirectory> or cd .. (this goes to parent directory)",
             "Command: Lists all files subdirectories\n\nTo use: ls",
-            "Command: Report an Incident to AI Government to recieve support\n\nTo use: report <message>",
+            "Command: Report an Incident to AI Government to recieve support\n\nTo use: report",
             "Command: Output the contents of a file\n\nTo use: cat <filename>",
             "Command: Clear the terminal\n\nTo use: clear",
             "Command: Scan a file to make it hackable\n\nTo use: scan <filename>",

@@ -285,7 +285,7 @@ end
 function roomScene.updateInfoBox(dt)
     if infoBoxVisible then
         infoBoxTimer = infoBoxTimer + dt
-        if infoBoxTimer > 4 then
+        if infoBoxTimer > 6 then
             infoBoxVisible = false
             infoBoxTimer = 0
         end
