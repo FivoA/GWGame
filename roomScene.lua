@@ -81,8 +81,8 @@ function roomScene.drawRoom()
 
     --  day system drawing
     roomScene.drawTime() -- creates drawable text
-    love.graphics.draw(clock, (love.graphics.getWidth() / 100), 0, 0, 0.38, 0.38 )
-    love.graphics.draw(dayText, (love.graphics.getWidth() / 35), (love.graphics.getHeight() / 35), 0, 1 , 1 )
+    love.graphics.draw(clock, (love.graphics.getWidth() / 100), 0, 0, 0.38 * scale, 0.38 *scale )
+    love.graphics.draw(dayText, (love.graphics.getWidth() / 30), (love.graphics.getHeight() / 27), 0, 1 *scale , 1 *scale )
 
     --think bubble drawing
     love.graphics.draw(bubble.image, bubble.x, bubble.y, 0, bubble.scale, bubble.scale)
@@ -90,10 +90,10 @@ function roomScene.drawRoom()
 
     --infobox drawing
     if infoBoxVisible then
-        love.graphics.draw(infoBox, (love.graphics.getWidth() / 2) - (infoBox:getWidth() / 2),
-            love.graphics.getHeight() - (infoBox:getHeight()) - (love.graphics.getHeight() / 100), 0, 0.8 *scale, 0.8 * scale)
+        love.graphics.draw(infoBox, (love.graphics.getWidth() / 2) - (infoBox:getWidth() *0.8 *scale / 2),
+            love.graphics.getHeight() - (infoBox:getHeight()) - (love.graphics.getHeight()  *0.8 *scale/ 100), 0, 0.8 *scale, 0.8 * scale)
 
-        love.graphics.draw(infoBoxText, (love.graphics.getWidth() / 2) - (infoBox:getWidth() * 0.8 *scale / 5),
+        love.graphics.draw(infoBoxText, (love.graphics.getWidth() / 2) - (infoBox:getWidth() * 0.8 *scale / 4),
             love.graphics.getHeight() - (infoBox:getHeight() * 0.8 * scale / 1.5))
 
     end

@@ -88,7 +88,7 @@ function love.load() -- done once on game start up, load all assets and resource
     end
 
     --speech bubble
-    local xN, yN = calculateRelativePosition(bgX, bgY, bg:getWidth() * scale, bg:getHeight() * scale, 1.1,0.4)
+    local xN, yN = calculateRelativePosition(bgX, bgY, bg:getWidth() * scale, bg:getHeight() * scale, 1,0.4)
     bubble = {
         image = love.graphics.newImage("assets/images/bubble.png"),
         x = xN,
