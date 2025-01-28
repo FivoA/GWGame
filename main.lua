@@ -116,13 +116,23 @@ function love.load() -- done once on game start up, load all assets and resource
         },
         pages = {
             "Command: Exists the terminal\n\nTo use: exit",
+            "Command: Get a greeting\n\nTo use: hello",
             "Command: Change Directory\n\nTo use: cd <availible subdirectory> or cd .. (this goes to parent directory)",
             "Command: Lists all files subdirectories\n\nTo use: ls",
             "Command: Report an Incident to AI Government to recieve support\n\nTo use: report <message>",
+            "Command: Output the contents of a file\n\nTo use: cat <filename>",
+            "Command: Clear the terminal\n\nTo use: clear",
+            "Command: Scan a file to make it hackable\n\nTo use: scan <filename>",
+            "Command: Try to hack a file after scanning it\n\nTo use: hack <filename> <magic key>",
+            "Command: See all availible commands\n\nTo use: help",
+            "Command: Change the color of the terminal\n\nTo use: color <r g b>",
+            "Command: Connent to a target host\n\nTo use: connent <target>",
+            "Command: Output anything\n\nTo use: echo <input>",
+            "Command: Print the current working directory\n\nTo use: cwd",
             "Command: Check if support agent Chad is availible after report and ready to talk\n\nTo use: talk chad"
         }, -- we can dynamically add new pages for new terminal commands here!
         currentPage = 1,
-        pageCount = 5,
+        pageCount = 15,
         sprites = {
             open = {
                 image = love.graphics.newImage("assets/images/openBook.png"),
