@@ -107,7 +107,7 @@ function love.load() -- done once on game start up, load all assets and resource
 
     -- in-game objects
     -- code-manual
-    local xN, yN = calculateRelativePosition(bgX, bgY, bg:getWidth() * scale, bg:getHeight() * scale, -0.4, 0.2)
+    local xN, yN = calculateRelativePosition(bgX, bgY, bg:getWidth() * scale, bg:getHeight() * scale, -0.35, 0.2)
     manual = {
         isOpen = false,
         position = {
