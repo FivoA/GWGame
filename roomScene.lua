@@ -90,11 +90,16 @@ function roomScene.drawRoom()
 
     --infobox drawing
     if infoBoxVisible then
-        love.graphics.draw(infoBox, (love.graphics.getWidth() / 2) - (infoBox:getWidth() *0.8 *scale / 2),
-            love.graphics.getHeight() - (infoBox:getHeight()) - (love.graphics.getHeight()  *0.8 *scale/ 100), 0, 0.8 *scale, 0.8 * scale)
-
-        love.graphics.draw(infoBoxText, (love.graphics.getWidth() / 2) - (infoBox:getWidth() * 0.8 *scale / 4),
-            love.graphics.getHeight() - (infoBox:getHeight() * 0.8 * scale / 1.5))
+        local infoBoxWidth = infoBox:getWidth() * 0.8 * scale
+        local infoBoxHeight = infoBox:getHeight() * 0.8 * scale
+        local infoBoxX = (love.graphics.getWidth() / 2) - (infoBoxWidth / 2)
+        local infoBoxY = love.graphics.getHeight() - infoBoxHeight - (love.graphics.getHeight() * 0.02) -- 2% margin from bottom
+    
+        love.graphics.draw(infoBox, infoBoxX, infoBoxY, 0, 0.8 *scale, 0.8 * scale)
+        local textX = infoBoxX + (infoBoxWidth / 4)
+        local textY = infoBoxY + (infoBoxHeight / 3)
+    
+        love.graphics.draw(infoBoxText, textX,textY, 0, 0.8 * scale, 0.8 * scale)
 
     end
 
