@@ -28,9 +28,11 @@ function roomScene.drawRoom()
         local xN, yN = calculateRelativePosition(bgX, bgY, bg:getWidth() * scale, bg:getHeight() * scale, 0.4, 0.07)
         displayDailyHelpMsg(day)
         love.graphics.draw(dailyBanner, xN, yN, 0, 0.75 * scale, 0.75 * scale)
-        love.graphics.draw(dailyText,  xN + (dailyBanner:getWidth() / 10),
-        yN + (dailyBanner:getHeight() / 9), 0, 0.75 * scale, 0.75 *scale)
-        love.graphics.draw(dailyX.image, xN,yN, 0, dailyX.scaleX, dailyX.scaleY)
+        love.graphics.draw(dailyText,  xN + (25 * scale),
+        yN + (20 * scale), 0, 0.75 * scale, 0.75 *scale)
+        dailyX.x = xN + (280 * scale)
+        dailyX.y = yN 
+        love.graphics.draw(dailyX.image, dailyX.x,dailyX.y, 0, dailyX.scaleX, dailyX.scaleY)
     end
 
     -- remove muffin from item table on day 2 and add note!
@@ -105,8 +107,8 @@ function roomScene.drawRoom()
         local infoBoxY = love.graphics.getHeight() - infoBoxHeight - (love.graphics.getHeight() * 0.02) -- 2% margin from bottom
     
         love.graphics.draw(infoBox, infoBoxX, infoBoxY, 0, 0.8 *scale, 0.8 * scale)
-        local textX = infoBoxX + (infoBoxWidth / 4)
-        local textY = infoBoxY + (infoBoxHeight / 3)
+        local textX = infoBoxX + (60 * scale)
+        local textY = infoBoxY + (50 * scale)
     
         love.graphics.draw(infoBoxText, textX,textY, 0, 0.8 * scale, 0.8 * scale)
 

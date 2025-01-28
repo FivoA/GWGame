@@ -17,7 +17,7 @@ gameHours = 8
 gameMinutes = 0
 timeText = nil
 -- day system variables
-day = 2
+day = 1
 dayText = nil
 
 -- clickable mutex (only one item can be opened at once type shi)
