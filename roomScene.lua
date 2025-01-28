@@ -88,8 +88,8 @@ function roomScene.drawRoom()
     local clockY = love.graphics.getHeight() * 0.02
 
     love.graphics.draw(clock, clockX, clockY, 0, 0.38 * scale, 0.38 *scale )
-    local dayTextX = clockX + (love.graphics.getWidth() * scale * 0.017)
-    local dayTextY = clockY + (clockHeight / 2.7)
+    local dayTextX = clockX + (33 * scale)
+    local dayTextY = clockY + (30 * scale)
 
     love.graphics.draw(dayText, dayTextX, dayTextY, 0, scale , scale )
 
