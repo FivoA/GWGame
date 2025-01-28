@@ -21,6 +21,7 @@ function terminalScene.load()
         terminal:registerCommand("help", termfunc.help)
         terminal:registerCommand("hello", termfunc.hello)
         terminal:registerCommand("ls", termfunc.ls)
+        terminal:registerCommand("report", termfunc.report)
         terminal:registerCommand("scan", termfunc.scan)
         terminal:registerCommand("talk", termfunc.talk)
     end

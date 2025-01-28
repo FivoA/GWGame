@@ -2,7 +2,7 @@ local dialog = require("dialog")
 local chat = {}
 local history = { { node = "chad_intro", chosen = nil } }
 
-local startX = love.graphics.getWidth() / 2
+
 
 local selectedOptionIndex = 1
 
@@ -14,6 +14,8 @@ sY = screenHeight / bg:getHeight()
 scale = math.min(sX, sY)
 
 function chat.draw()
+    local startX = love.graphics.getWidth() / 2
+
     local lines = {}
     for _, entry in ipairs(history) do
         local node = dialog[entry.node]
