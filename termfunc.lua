@@ -218,8 +218,12 @@ function Termfunc.mkdir(terminal, ...)
         "Directory created successfully. -> HAHA but you cant see it with ls cause this function is still under dev!")
 end
 
-function Termfunc.rm(terminal)
-    terminal:println("[ERROR] NYI")
+function Termfunc.report(terminal)
+    terminal:println("Fethching citizen id...")
+    terminal:println("Report created for citizen with id Citizen#3857")
+    if day == 1 then
+        dayswitch = true
+    end
 end
 
 function Termfunc.scan(terminal, ...)
