@@ -35,7 +35,7 @@ function roomScene.drawRoom()
 
     -- remove muffin from item table on day 2 and add note!
     if (day == 2) and (not muffinRemoved) then
-        local xN, yN = calculateRelativePosition(bgX, bgY, bg:getWidth() * scale, bg:getHeight() * scale, 0.45, 0.45)
+        local xN, yN = calculateRelativePosition(bgX, bgY, bg:getWidth() * scale, bg:getHeight() * scale, 0.45, 0.53)
         muffinRemoved = true
         table.remove(items, 3)
         table.insert(items, 3, {
@@ -68,8 +68,8 @@ function roomScene.drawRoom()
             .scaleX, manual.sprites.open.scaleY)
 
         roomScene.drawManualText(manual.currentPage)
-        love.graphics.draw(manualText, manual.position.x + 131, manual.position.y + 113)
-        love.graphics.draw(manualPageText, manual.position.x + 400, manual.position.y + 180)
+        love.graphics.draw(manualText, manual.position.x + (131 * scale), manual.position.y + (113* scale), 0, scale, scale)
+        love.graphics.draw(manualPageText, manual.position.x + (400*scale), manual.position.y + (180*scale), 0, scale, scale)
 
         love.graphics.draw(manual.sprites.xButton.image, manual.sprites.xButton.position.x,
             manual.sprites.xButton.position.y, 0, manual.sprites.xButton.scaleX, manual.sprites.xButton.scaleY)
@@ -81,8 +81,17 @@ function roomScene.drawRoom()
 
     --  day system drawing
     roomScene.drawTime() -- creates drawable text
-    love.graphics.draw(clock, (love.graphics.getWidth() / 100), 0, 0, 0.38 * scale, 0.38 *scale )
-    love.graphics.draw(dayText, (love.graphics.getWidth() / 30), (love.graphics.getHeight() / 27), 0, 1 *scale , 1 *scale )
+    local clockWidth = clock:getWidth() * 0.38 * scale
+    local clockHeight = clock:getHeight() * 0.38 * scale
+
+    local clockX = love.graphics.getWidth() * 0.01
+    local clockY = love.graphics.getHeight() * 0.02
+
+    love.graphics.draw(clock, clockX, clockY, 0, 0.38 * scale, 0.38 *scale )
+    local dayTextX = clockX + (love.graphics.getWidth() * 0.02)
+    local dayTextY = clockY + (clockHeight / 2.7)
+
+    love.graphics.draw(dayText, dayTextX, dayTextY, 0, 1 *scale , 1 *scale )
 
     --think bubble drawing
     love.graphics.draw(bubble.image, bubble.x, bubble.y, 0, bubble.scale, bubble.scale)

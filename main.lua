@@ -127,50 +127,41 @@ function love.load() -- done once on game start up, load all assets and resource
             open = {
                 image = love.graphics.newImage("assets/images/openBook.png"),
                 position = {
-                    x = 300,
-                    y = 200
+                    x = xN,
+                    y = yN
                 },
-                scaleX = 2,
-                scaleY = 2
+                scaleX = 2 * scale,
+                scaleY = 2 * scale
             },
             xButton = {
                 image = love.graphics.newImage("assets/images/xButton.png"),
                 position = {
-                    x = 0,
-                    y = 0
+                    x = xN + (505 * scale),
+                    y = yN + (80 *scale)
                 },
-                scaleX = 0.075,
-                scaleY = 0.075
+                scaleX = 0.075 * scale,
+                scaleY = 0.075 * scale
             },
             leftButton = {
                 image = love.graphics.newImage("assets/images/leftButton.png"),
                 position = {
-                    x = 0,
-                    y = 0
+                    x = xN + (155 * scale),
+                    y = yN + (260 *scale)
                 },
-                scaleX = 0.2,
-                scaleY = 0.2
+                scaleX = 0.2 * scale,
+                scaleY = 0.2 * scale
             },
             rightButton = {
                 image = love.graphics.newImage("assets/images/rightButton.png"),
                 position = {
-                    x = 0,
-                    y = 0
+                    x = xN + (390 *scale), 
+                    y = yN + (260 *scale)
                 },
-                scaleX = 0.2,
-                scaleY = 0.2
+                scaleX = 0.2 * scale,
+                scaleY = 0.2 * scale
             }
         }
     }
-    -- we have to make this assignment here cause fuckass lua cant use the value bEfOrE tHe tAbLe iS cReAtEd
-    manual.sprites.xButton.position.x = manual.position.x + 505
-    manual.sprites.xButton.position.y = manual.position.y + 80
-
-    manual.sprites.leftButton.position.x = manual.position.x + 155
-    manual.sprites.leftButton.position.y = manual.position.y + 260
-
-    manual.sprites.rightButton.position.x = manual.position.x + 390
-    manual.sprites.rightButton.position.y = manual.position.y + 260
 
     -- Main Menu asset Loading
     startText = love.graphics.newImage("assets/images/startText.png")
