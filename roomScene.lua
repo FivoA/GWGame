@@ -93,8 +93,8 @@ function roomScene.drawRoom()
         love.graphics.draw(infoBox, (love.graphics.getWidth() / 2) - (infoBox:getWidth() / 2),
             love.graphics.getHeight() - (infoBox:getHeight()) - (love.graphics.getHeight() / 100), 0, 0.8 *scale, 0.8 * scale)
 
-        love.graphics.draw(infoBoxText, (love.graphics.getWidth() / 2) - (infoBox:getWidth() * 0.5 / 2),
-            love.graphics.getHeight() - (infoBox:getHeight() * 0.5) - (love.graphics.getHeight() / 30))
+        love.graphics.draw(infoBoxText, (love.graphics.getWidth() / 2) - (infoBox:getWidth() * 0.8 *scale / 5),
+            love.graphics.getHeight() - (infoBox:getHeight() * 0.8 * scale / 1.5))
 
     end
 
@@ -254,7 +254,7 @@ function roomScene.drawInfo(text)
     infoBoxVisible = true
     infoBoxTimer = 0
     infoBoxText = love.graphics.newText(love.graphics.getFont(), { { 0, 0, 0 }, string.format("%s", text) })
-    infoBoxText:setf({ { 0, 0, 0 }, string.format("%s", text) }, 160, "left")
+    infoBoxText:setf({ { 0, 0, 0 }, string.format("%s", text) }, 150, "left")
 end
 
 --create text for manual book
