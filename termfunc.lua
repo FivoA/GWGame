@@ -226,7 +226,7 @@ function Termfunc.report(terminal)
     if day == 1 then
         terminal:println("Report created for citizen with id Citizen#3857")
         terminal:println("Fetching citizen id...")
-        dayswitch = true
+        switchDay = true
         terminal:println("A worker will be available for you tomorow!\nUse talk <workername> to receive.")
     else
         terminal:println("Analyzing...\nNothing errors found. Nothing to report")
