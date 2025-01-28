@@ -257,9 +257,36 @@ function Termfunc.scan(terminal, ...)
     print("Added to hackedfiles: " .. hackedFiles[args[1]])
 end
 
-function Termfunc.talk()
-    chatEnabled = true
-    chatFocused = true
+function Termfunc.talk(terminal, ...)
+    local args = { ... }
+    if #args ~= 1 then
+        terminal:println("talk requires a positional argument. Either <Username> or quit")
+        return
+    end
+
+    local param = args[1]
+    if param == "quit" then
+        chatEnabled = false
+        chatFocused = false
+        terminal:println("talk exited.")
+        return
+    end
+
+    if param == "chad" then
+        if day == 1 then
+            terminal:println("403: Forbidden. You're not meant to be here yet.")
+            return
+        end
+
+
+        chatEnabled = true
+        chatFocused = true
+        love.timer.sleep(0.75)
+        terminal:println("Connection to chad established. Start talking!")
+        return
+    end
+
+    terminal:println("No user found.")
 end
 
 return Termfunc
