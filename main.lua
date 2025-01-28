@@ -25,6 +25,7 @@ function love.load() -- done once on game start up, load all assets and resource
     bg = love.graphics.newImage("assets/images/room.png")
     infoBox = love.graphics.newImage("assets/images/infoBox.png")
     clock = love.graphics.newImage("assets/images/clock.png")
+
     -- sprites of items
     computer = love.graphics.newImage("assets/images/computer.png")
     computerHovered = love.graphics.newImage("assets/images/computerHovered.png")
@@ -87,6 +88,14 @@ function love.load() -- done once on game start up, load all assets and resource
         })
     end
 
+    --speech bubble
+    local xN, yN = calculateRelativePosition(bgX, bgY, bg:getWidth() * scale, bg:getHeight() * scale, 0.9,0.4)
+    bubble = {
+        image = love.graphics.newImage("assets/images/bubble.png"),
+        x = xN,
+        y = yN,
+        scale = 0.38 * scale
+    }
     --music
     backgroundMusic = love.audio.newSource("assets/sounds/bgmusic.wav", "stream")
     backgroundMusic:setLooping(true)

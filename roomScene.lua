@@ -11,13 +11,13 @@ end
 
 -- Room Scene Functions
 function roomScene.drawRoom()
-            -- Calculate scale and positions after loading bg
-            sX = screenWidth / bg:getWidth()
-            sY = screenHeight / bg:getHeight()
-            scale = math.min(sX, sY)
+    -- Calculate scale and positions after loading bg
+    sX = screenWidth / bg:getWidth()
+    sY = screenHeight / bg:getHeight()
+    scale = math.min(sX, sY)
         
-            bgX = (screenWidth - (bg:getWidth() * scale)) / 2
-            bgY = (screenHeight - (bg:getHeight() * scale)) / 2
+    bgX = (screenWidth - (bg:getWidth() * scale)) / 2
+    bgY = (screenHeight - (bg:getHeight() * scale)) / 2
     
     love.graphics.setColor(1, 1, 1)
     -- set font accordingly
@@ -81,13 +81,17 @@ function roomScene.drawRoom()
 
     --  day system drawing
     roomScene.drawTime() -- creates drawable text
-    love.graphics.draw(clock, (love.graphics.getWidth() / 100), 0, 0, 0.38, 0.38)
-    love.graphics.draw(dayText, (love.graphics.getWidth() / 35), (love.graphics.getHeight() / 35), 0, 1, 1)
+    love.graphics.draw(clock, (love.graphics.getWidth() / 100), 0, 0, 0.38, 0.38 )
+    love.graphics.draw(dayText, (love.graphics.getWidth() / 35), (love.graphics.getHeight() / 35), 0, 1 , 1 )
+
+    --think bubble drawing
+    love.graphics.draw(bubble.image, bubble.x, bubble.y, 0, bubble.scale, bubble.scale)
+
 
     --infobox drawing
     if infoBoxVisible then
         love.graphics.draw(infoBox, (love.graphics.getWidth() / 2) - (infoBox:getWidth() / 2),
-            love.graphics.getHeight() - (infoBox:getHeight()) - (love.graphics.getHeight() / 100), 0, 1, 1)
+            love.graphics.getHeight() - (infoBox:getHeight()) - (love.graphics.getHeight() / 100), 0, 0.8 *scale, 0.8 * scale)
 
         love.graphics.draw(infoBoxText, (love.graphics.getWidth() / 2) - (infoBox:getWidth() * 0.5 / 2),
             love.graphics.getHeight() - (infoBox:getHeight() * 0.5) - (love.graphics.getHeight() / 30))
@@ -223,6 +227,14 @@ function roomScene.mousePressRoom(x, y, button, istouch)
                     print("Switch Clicked") -- debug
                     roomScene.drawInfo(
                         "Your Nintedo Switch. You love playing 'Super Mario Brothers - The Movie - The Game' on this!")
+                end
+                -- was bubble clicked?
+                if x >= bubble.x and x <= bubble.x + (bubble.image:getWidth() * bubble.scale) and y>= bubble.y and y<= bubble.y + (bubble.image:getHeight() * bubble.scale) then
+                    if day == 1 then
+                        roomScene.drawInfo("Ugh, another day in this claustrophopic world. The system seems buggy though, better report that to stay out of any trouble.")
+                    else
+                        roomScene.drawInfo("Ugh, another - wait... Muffin?? WHERE ARE YOU!?!?!")
+                    end
                 end
             end
         end
