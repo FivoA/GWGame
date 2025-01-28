@@ -107,7 +107,7 @@ function love.load() -- done once on game start up, load all assets and resource
 
     -- in-game objects
     -- code-manual
-    local xN, yN = calculateRelativePosition(bgX, bgY, bg:getWidth() * scale, bg:getHeight() * scale, -0.2, 0.3)
+    local xN, yN = calculateRelativePosition(bgX, bgY, bg:getWidth() * scale, bg:getHeight() * scale, -0.4, 0.2)
     manual = {
         isOpen = false,
         position = {
@@ -119,7 +119,7 @@ function love.load() -- done once on game start up, load all assets and resource
             "Command: Change Directory\n\nTo use: cd <availible subdirectory> or cd .. (this goes to parent directory)",
             "Command: Lists all files subdirectories\n\nTo use: ls",
             "Command: Report an Incident to AI Government to recieve support\n\nTo use: report <message>",
-            "Command: Check if a support agent is availible after report and ready to talk\n\nTo use: talk"
+            "Command: Check if support agent Chad is availible after report and ready to talk\n\nTo use: talk chad"
         }, -- we can dynamically add new pages for new terminal commands here!
         currentPage = 1,
         pageCount = 5,

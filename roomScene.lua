@@ -101,16 +101,16 @@ function roomScene.drawRoom()
 
     --infobox drawing
     if infoBoxVisible then
-        local infoBoxWidth = infoBox:getWidth() * 0.8 * scale
-        local infoBoxHeight = infoBox:getHeight() * 0.8 * scale
+        local infoBoxWidth = infoBox:getWidth() * 1.2 * scale
+        local infoBoxHeight = infoBox:getHeight() * 1.2 * scale
         local infoBoxX = (love.graphics.getWidth() / 2) - (infoBoxWidth / 2)
-        local infoBoxY = love.graphics.getHeight() - infoBoxHeight - (love.graphics.getHeight() * 0.02) -- 2% margin from bottom
+        local infoBoxY = love.graphics.getHeight() - (infoBoxHeight)
     
-        love.graphics.draw(infoBox, infoBoxX, infoBoxY, 0, 0.8 *scale, 0.8 * scale)
-        local textX = infoBoxX + (60 * scale)
-        local textY = infoBoxY + (50 * scale)
+        love.graphics.draw(infoBox, infoBoxX, infoBoxY, 0, 1.2 *scale, 1.2 * scale)
+        local textX = infoBoxX + (90 * scale)
+        local textY = infoBoxY + (70 * scale)
     
-        love.graphics.draw(infoBoxText, textX,textY, 0, 0.8 * scale, 0.8 * scale)
+        love.graphics.draw(infoBoxText, textX,textY, 0, 1.2 * scale, 1.2* scale)
 
     end
 
@@ -247,9 +247,9 @@ function roomScene.mousePressRoom(x, y, button, istouch)
                 -- was bubble clicked?
                 if x >= bubble.x and x <= bubble.x + (bubble.image:getWidth() * bubble.scale) and y>= bubble.y and y<= bubble.y + (bubble.image:getHeight() * bubble.scale) then
                     if day == 1 then
-                        roomScene.drawInfo("Ugh, another day in this claustrophopic world. The system seems buggy though, better report that to stay out of any trouble.")
+                        roomScene.drawInfo("'Ugh, another day in this claustrophopic world. The system seems buggy though, better report that to stay out of any trouble.'")
                     else
-                        roomScene.drawInfo("Ugh, another - wait... Muffin?? WHERE ARE YOU!?!?!")
+                        roomScene.drawInfo("'Ugh, another - wait... Muffin?? WHERE ARE YOU!?!?!'")
                     end
                 end
             end
