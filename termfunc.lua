@@ -222,7 +222,7 @@ function Termfunc.report(terminal)
     terminal:println("Fetching citizen id...")
     terminal:println("Report created for citizen with id Citizen#3857")
     if day == 1 then
-        dayswitch = true
+        switchDay = true
     end
 end
 
