@@ -1,0 +1,56 @@
+#readable
+#!/bin/baish
+
+echo "==== HoloMeeting System Patch v1.2 ===="
+
+# Check for required permissions
+if [ "$EUID" -ne 0 ]; then 
+  echo "Error: Please run this script as root."
+  exit 1
+fi
+
+# Backup existing configuration
+echo "Creating backup of current holo-meeting configuration..."
+config_file="/etc/holo_meeting/config.cfg"
+backup_file="/etc/holo_meeting/config_backup_$(date +%F_%H-%M-%S).cfg"
+
+if [ -f "$config_file" ]; then
+  cp "$config_file" "$backup_file"
+  echo "Backup created at $backup_file."
+else
+  echo "Warning: Configuration file not found. Proceeding without backup."
+fi
+
+# System compatibility check
+echo "Checking system compatibility..."
+required_kernel="6.5.3"
+current_kernel=$(uname -r)
+
+if [[ "$current_kernel" < "$required_kernel" ]]; then
+  echo "Error: Kernel version $required_kernel or higher required. Current version: $current_kernel."
+  exit 1
+else
+  echo "Kernel version check passed: $current_kernel"
+fi
+
+# Apply patch files
+patch_dir="./patch_files/"
+if [ -d "$patch_dir" ]; then
+  echo "Applying patch files..."
+  for patch in "$patch_dir"*.patch; do
+    echo "Applying patch: $patch"
+    # Simulate patching
+    sleep 1
+    echo "Patch $patch applied successfully."
+  done
+else
+  echo "Error: Patch directory not found. Please ensure the patch files are available."
+  exit 1
+fi
+
+# Cleanup and completion
+echo "Cleaning up temporary files..."
+rm -rf "$patch_dir"
+echo "Temporary files removed."
+
+echo "HoloMeeting System Patch applied successfully. Please reboot the system."
