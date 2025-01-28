@@ -62,6 +62,7 @@ terminal = nil
 terminalFont = love.graphics.newFont("/assets/VT323-Regular.ttf", 28, "normal")
 termBG = { 7 / 255, 7 / 255, 7 / 255 }
 termFontCol = { 0, 1, 0 }
+termFontColUnfocused = { 0, 0.5, 0 }
 chatEnabled = false
 chatFocused = false
 

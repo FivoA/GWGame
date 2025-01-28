@@ -29,11 +29,20 @@ end
 function terminalScene.draw()
     love.graphics.clear(termBG)
     love.graphics.setFont(terminalFont)
-    love.graphics.setColor(termFontCol)
+    if chatFocused then
+        love.graphics.setColor(termFontColUnfocused)
+    else
+        love.graphics.setColor(termFontCol)
+    end
     terminal:draw()
 
     if chatEnabled then
         local lineX = love.graphics.getWidth() / 2
+        if not chatFocused then
+            love.graphics.setColor(termFontColUnfocused)
+        else
+            love.graphics.setColor(termFontCol)
+        end
         love.graphics.line(lineX, 0, lineX, love.graphics.getHeight())
         chat.draw()
     end

@@ -10,9 +10,9 @@ function chat.draw()
     local lines = {}
     for _, entry in ipairs(history) do
         local node = dialog[entry.node]
-        table.insert(lines, "Chad: " .. node.text .. "\n")
+        table.insert(lines, "Chad: " .. node.text)
         if entry.chosen ~= nil then
-            table.insert(lines, "citizen#3857: " .. entry.chosen .. "\n")
+            table.insert(lines, "-> citizen#3857: " .. entry.chosen .. "\n")
         else
             if node.options ~= nil then
                 for i, option in ipairs(node.options) do
@@ -48,20 +48,27 @@ function chat.keypressed(key)
         if currentNode.options == nil then
             return
         end
-
+        local optionCount = #currentNode.options
         if key == "return" then
             local selectedOption = currentNode.options[selectedOptionIndex]
             history[#history].chosen = currentNode.options[selectedOptionIndex].text
             table.insert(history, { node = selectedOption.next, chosen = nil })
             selectedOptionIndex = 1;
         elseif key == "down" then
-            local optionCount = currentNode.options
             if selectedOptionIndex < optionCount then
                 selectedOptionIndex = selectedOptionIndex + 1
             end
         elseif key == "up" then
             if 1 < selectedOptionIndex then
                 selectedOptionIndex = selectedOptionIndex - 1
+            end
+        elseif tonumber(key) ~= nil then
+            local number = tonumber(key)
+            if 1 <= number and number <= optionCount then
+                local selectedOption = currentNode.options[number]
+                history[#history].chosen = currentNode.options[selectedOptionIndex].text
+                table.insert(history, { node = selectedOption.next, chosen = nil })
+                selectedOptionIndex = 1;
             end
         end
     end
