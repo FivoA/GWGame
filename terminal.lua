@@ -102,8 +102,8 @@ function Terminal:draw()
     -- handle vertical overflow
     local overflow = #totalWrappedLines - maxLines
     if overflow > 0 then
-        for i = 1, overflow do
-            table.remove(totalWrappedLines, i)
+        for _ = 1, overflow do
+            table.remove(totalWrappedLines, 1)
         end
     end
 

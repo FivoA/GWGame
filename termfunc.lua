@@ -105,14 +105,17 @@ function Termfunc.hack(terminal, ...)
         table.insert(params, param)
     end
     print(table.concat(params, ' - ') .. " -> #params: " .. #params)
-    if #params < 3 then
+
+    if #params == 1 and params[1] == "#readable" then
+        terminal:println("No encryption present. Use 'cat' to read the file.")
+        return
+    elseif #params < 3 then
         print(#params ..
             " are invalid lenght to hack. Is the file " ..
             filename .. " really defined correctly? Pls check the header line!")
         terminal:println("This file seems to be corrupted.")
         return
     end
-
 
     if params[1] == "#hackable" then
         if not hackedFiles[filename] then
@@ -249,7 +252,10 @@ function Termfunc.scan(terminal, ...)
         table.insert(params, param)
     end
 
-    if params[1] ~= "#hackable" then
+    if params[1] == "#readable" then
+        terminal:println("No encryption detected. Use 'cat' to read the file.")
+        return
+    elseif params[1] ~= "#hackable" then
         terminal:println("File is not hackable.")
         return
     end
@@ -262,10 +268,14 @@ function Termfunc.scan(terminal, ...)
 
     terminal:println("Detected encryption key in range: [" .. min .. ";" .. max .. "]")
 
-    math.randomseed(os.time())
-    hackedFiles[args[1]] = math.random(min, max)
-    terminal:println("File can now be hacked with 'hack' and the right key.")
-    print("Added to hackedfiles: " .. hackedFiles[args[1]])
+    if not hackedFiles[args[1]] then
+        math.randomseed(os.time())
+        hackedFiles[args[1]] = math.random(min, max)
+        terminal:println("File can now be hacked with 'hack' and the right key.")
+        print("Added to hackedfiles: " .. hackedFiles[args[1]])
+    else
+        terminal:println("File was already scanned.")
+    end
 end
 
 function Termfunc.talk(terminal, ...)

@@ -1,11 +1,6 @@
 #hackable;0;2
 Sim ID: 3284-STW-9056 | Status: CRITICAL FAILURE | Project: Eden Prime
 
-[0x001B7F3A] Timestamp: 2063-12-04 04:47:01
-- Simulation State: !!!ERROR!!! | Data Integrity: **FATAL CORRUPTION**
-- Core Heart Rate: **-FATAL ERROR-** No data received: Simulation faltered.
-- Log Fragment: "_INFINITE_LOOP^DATA_CORRUPT_!!!unable_to_generate!! --- looping... glitch....____!!!_"
-
 [0x007B9382] Timestamp: 2063-12-04 04:47:03
 - Sensory Input: **F****ED TO GARBAGE % % Visual and tactile - 98% DATA LOSS.
 - Error: **VISUAL FEED**: Fragmenting into [ERROR^ERROR-]-********wobble-distortion** 
@@ -29,7 +24,7 @@ Sim ID: 3284-STW-9056 | Status: CRITICAL FAILURE | Project: Eden Prime
 - **CORE FAILURE**: Simulation loop couldn’t recover! SYSTEM SHUTDOWN.
     - Temperature Warning: **Overflow**: Unable to stabilize “body temperature” feedback loop.
     - **ERROR**: Unable to compute human stability. FEEDBACK COMPLEX OVERLOAD. 
-    - Log Fragment: “THHHEEEERRRRREEEE is nnnnooooooo storyyy.... No WOOrlldds… [ERROR ERROR ERROR]”
+    - Log Fragment: “THHHEEEERRRRREEEE is nnnnooooooo storyyy.... No WOOrlldds… [ERROR ERROR ERROR] !!!”
 
 [0x0C2EFA8F] Timestamp: 2063-12-04 04:48:08
 - **FINAL FAILURE**: CORE SIMULATION CRASHED.
